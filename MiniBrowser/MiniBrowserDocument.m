@@ -7,6 +7,7 @@
 //
 
 #import "MiniBrowserDocument.h"
+#import "MiniBrowserWindowController.h"
 
 @implementation MiniBrowserDocument
 
@@ -30,6 +31,16 @@
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
+}
+
+- (void)makeWindowControllers {
+    NSArray *myControllers = [self windowControllers];
+    
+    // If this document displaced a transient document, it will already have been assigned a window controller. If that is not the case, create one.
+    if ([myControllers count] == 0)
+    {
+        [self addWindowController:[[[MiniBrowserWindowController allocWithZone:[self zone]] init] autorelease]];
+    }
 }
 
 + (BOOL)autosavesInPlace
