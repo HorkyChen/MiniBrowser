@@ -14,6 +14,9 @@
 		0681E70717096EB600955434 /* MiniBrowserDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E70617096EB600955434 /* MiniBrowserDocument.m */; };
 		0681E70A17096EB600955434 /* MiniBrowserDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0681E70817096EB600955434 /* MiniBrowserDocument.xib */; };
 		0681E70D17096EB700955434 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0681E70B17096EB700955434 /* MainMenu.xib */; };
+		0681E71417096F1300955434 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0681E71317096F1300955434 /* WebKit.framework */; };
+		0681E7271709797B00955434 /* MiniBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E7261709797B00955434 /* MiniBrowserWindowController.m */; };
+		0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,11 @@
 		0681E70617096EB600955434 /* MiniBrowserDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserDocument.m; sourceTree = "<group>"; };
 		0681E70917096EB600955434 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MiniBrowserDocument.xib; sourceTree = "<group>"; };
 		0681E70C17096EB700955434 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0681E71317096F1300955434 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		0681E7251709797B00955434 /* MiniBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserWindowController.h; sourceTree = "<group>"; };
+		0681E7261709797B00955434 /* MiniBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserWindowController.m; sourceTree = "<group>"; };
+		0681E72C1709885600955434 /* MiniBrowserFrameLoaderClients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserFrameLoaderClients.h; sourceTree = "<group>"; };
+		0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserFrameLoaderClients.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0681E71417096F1300955434 /* WebKit.framework in Frameworks */,
 				0681E6F417096EB600955434 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +74,7 @@
 		0681E6F217096EB600955434 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0681E71317096F1300955434 /* WebKit.framework */,
 				0681E6F317096EB600955434 /* Cocoa.framework */,
 				0681E6F517096EB600955434 /* Other Frameworks */,
 			);
@@ -84,11 +94,14 @@
 		0681E6F917096EB600955434 /* MiniBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				0681E7301709885E00955434 /* Delegates */,
 				0681E70517096EB600955434 /* MiniBrowserDocument.h */,
 				0681E70617096EB600955434 /* MiniBrowserDocument.m */,
 				0681E70817096EB600955434 /* MiniBrowserDocument.xib */,
 				0681E70B17096EB700955434 /* MainMenu.xib */,
 				0681E6FA17096EB600955434 /* Supporting Files */,
+				0681E7251709797B00955434 /* MiniBrowserWindowController.h */,
+				0681E7261709797B00955434 /* MiniBrowserWindowController.m */,
 			);
 			path = MiniBrowser;
 			sourceTree = "<group>";
@@ -103,6 +116,15 @@
 				0681E70217096EB600955434 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0681E7301709885E00955434 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				0681E72C1709885600955434 /* MiniBrowserFrameLoaderClients.h */,
+				0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */,
+			);
+			name = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +195,8 @@
 			files = (
 				0681E70017096EB600955434 /* main.m in Sources */,
 				0681E70717096EB600955434 /* MiniBrowserDocument.m in Sources */,
+				0681E7271709797B00955434 /* MiniBrowserWindowController.m in Sources */,
+				0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +332,7 @@
 				0681E71217096EB700955434 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
