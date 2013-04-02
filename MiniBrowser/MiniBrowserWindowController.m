@@ -13,9 +13,11 @@
 #define kForwardToolbarItemID      @"Forward"
 #define kRefreshToolbarItemID      @"Refresh"
 #define kStopToolbarItemID      @"Stop"
+#define kAddressBarID @"Address"
 
 #define kDefaultWebPage @"http://www.baidu.com"
 
+#define kToolBarICONWidth 32
 //#define OPEN_IN_NEW_WINDOW
 
 @interface MiniBrowserWindowController ()
@@ -45,7 +47,7 @@
 - (void)awakeFromNib
 {
     [toolbar setAllowsUserCustomization:YES];
-    [toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
+    [toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 }
 
 - (id)initWithWindow:(NSWindow *)window
@@ -64,6 +66,7 @@
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     NSView *mainView = [[self window] contentView];
+    
     webView = [[WebView alloc] initWithFrame:[mainView bounds] frameName:@"" groupName:@""];
     [webView setCustomUserAgent:@"Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25"];
     
@@ -98,6 +101,20 @@
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [myDocument showWindows];
 }
+
+#pragma mark - Window Controller Interface
+-(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url
+{
+    [[self window] setTitle:title];
+}
+
+-(void)updateURL:(NSString *)url
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressBarID];
+    assert(item);
+    [(NSTextField *)[item view] setStringValue:url];
+}
+
 #pragma mark - UI Actions
 -(void)loadURL:(NSString *)url
 {
@@ -109,6 +126,19 @@
     [[webView mainFrame] loadRequest:urlRequest];
 }
 
+-(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
+{
+    NSToolbarItem * result;
+    for(NSToolbarItem * item in [[[self window] toolbar] items])
+    {
+        if([[item itemIdentifier] isEqualToString:kAddressBarID])
+        {
+            result = item;
+            break;
+        }
+    }
+    return result;
+}
 
 #pragma mark - Toolbar Delegates
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
@@ -138,12 +168,6 @@
         assert(!"Invalid itemContent: object");
     }
     
-    
-    // If this NSToolbarItem is supposed to have a menu "form representation" associated with it
-    // (for text-only mode), we set it up here.  Actually, you have to hand an NSMenuItem
-    // (not a complete NSMenu) to the toolbar item, so we create a dummy NSMenuItem that has our real
-    // menu as a submenu.
-    //
     if (menu != nil)
     {
         // we actually need an NSMenuItem here, so we construct one
@@ -153,45 +177,23 @@
         [item setMenuFormRepresentation:mItem];
     }
     
+    if ([identifier isEqual: kAddressBarID])
+    {
+        [item setMinSize: NSSizeFromString(@"{width=100; height=32}")];
+        [item setMaxSize: NSSizeFromString(@"{width=800; height=32}")];
+        [item setTarget:self];
+    }
     return item;
 }
 
 #pragma mark - NSToolbarDelegate
 
-//--------------------------------------------------------------------------------------------------
-// This is an optional delegate method, called when a new item is about to be added to the toolbar.
-// This is a good spot to set up initial state information for toolbar items, particularly ones
-// that you don't directly control yourself (like with NSToolbarPrintItemIdentifier here).
-// The notification's object is the toolbar, and the @"item" key in the userInfo is the toolbar item
-// being added.
-//--------------------------------------------------------------------------------------------------
-- (void)toolbarWillAddItem:(NSNotification *)notif
-{
-    NSToolbarItem *addedItem = [[notif userInfo] objectForKey:@"item"];
-    
-    // Is this the printing toolbar item?  If so, then we want to redirect it's action to ourselves
-    // so we can handle the printing properly; hence, we give it a new target.
-    //
-    if ([[addedItem itemIdentifier] isEqual: NSToolbarPrintItemIdentifier])
-    {
-        [addedItem setToolTip:@"Print your document"];
-        [addedItem setTarget:self];
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// This method is required of NSToolbar delegates.
-// It takes an identifier, and returns the matching NSToolbarItem. It also takes a parameter telling
-// whether this toolbar item is going into an actual toolbar, or whether it's going to be displayed
-// in a customization palette.
-//--------------------------------------------------------------------------------------------------
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
 {
     NSToolbarItem *toolbarItem = nil;
     
     if ([itemIdentifier isEqualToString:kBackToolbarItemID])
     {
-        // 2) Refresh toolbar item
         toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
                                                 label:@"Back"
                                           paleteLabel:@"Back"
@@ -203,7 +205,6 @@
     }
     else if ([itemIdentifier isEqualToString:kForwardToolbarItemID])
     {
-        // 2) Refresh toolbar item
         toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
                                                 label:@"Forward"
                                           paleteLabel:@"Forward"
@@ -215,7 +216,6 @@
     }
     else if ([itemIdentifier isEqualToString:kRefreshToolbarItemID])
     {
-        // 2) Refresh toolbar item
         toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
                                                 label:@"Refresh"
                                           paleteLabel:@"Refresh"
@@ -227,7 +227,6 @@
     }
     else if ([itemIdentifier isEqualToString:kStopToolbarItemID])
     {
-        // 2) Refresh toolbar item
         toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
                                                 label:@"Stop"
                                           paleteLabel:@"Stop"
@@ -237,39 +236,43 @@
                                                action:@selector(stopLoading:)
                                                  menu:nil];
     }
+    else if ([itemIdentifier isEqualToString:kAddressBarID])
+    {
+        NSRect editorRect = NSRectFromCGRect(CGRectMake(4*kToolBarICONWidth,5,200,kToolBarICONWidth));
+        NSTextField * addressEditor = [[NSTextField alloc] initWithFrame:editorRect];
+        [addressEditor setBezelStyle:NSTextFieldRoundedBezel];
+        [addressEditor setDelegate:self];
+        
+        toolbarItem = [self toolbarItemWithIdentifier:kAddressBarID
+                                                label:@""
+                                          paleteLabel:@""
+                                              toolTip:@"Enter the URL."
+                                               target:webView
+                                          itemContent: addressEditor
+                                               action:nil
+                                                 menu:nil];
+    }
     
     return toolbarItem;
 }
 
-//--------------------------------------------------------------------------------------------------
-// This method is required of NSToolbar delegates.  It returns an array holding identifiers for the default
-// set of toolbar items.  It can also be called by the customization palette to display the default toolbar.
-//--------------------------------------------------------------------------------------------------
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
     return [NSArray arrayWithObjects:  kBackToolbarItemID,
             kForwardToolbarItemID,
             kRefreshToolbarItemID,
             kStopToolbarItemID,
+            kAddressBarID,
             nil];
-    // note:
-    // that since our toolbar is defined from Interface Builder, an additional separator and customize
-    // toolbar items will be automatically added to the "default" list of items.
 }
 
-//--------------------------------------------------------------------------------------------------
-// This method is required of NSToolbar delegates.  It returns an array holding identifiers for all allowed
-// toolbar items in this toolbar.  Any not listed here will not be available in the customization palette.
-//--------------------------------------------------------------------------------------------------
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
     return [NSArray arrayWithObjects:  kBackToolbarItemID,
             kForwardToolbarItemID,
             kRefreshToolbarItemID,
             kStopToolbarItemID,
+            kAddressBarID,
             nil];
-    // note:
-    // that since our toolbar is defined from Interface Builder, an additional separator and customize
-    // toolbar items will be automatically added to the "default" list of items.
 }
 @end

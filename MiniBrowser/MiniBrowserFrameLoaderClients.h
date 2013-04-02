@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MiniBrowserWindowController.h"
 
 @interface MiniBrowserFrameLoaderClients : NSObject
 {
-    NSWindowController * controller;
+    MiniBrowserWindowController * controller;
 }
--initWithController:(NSWindowController *)aController;
+-initWithController:(MiniBrowserWindowController *)aController;
 @end

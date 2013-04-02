@@ -14,7 +14,7 @@
 
 @implementation MiniBrowserFrameLoaderClients
 
--initWithController:(NSWindowController *)aController
+-initWithController:(MiniBrowserWindowController *)aController
 {
     self = [super init];
     
@@ -27,6 +27,19 @@
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
-    [[controller window] setTitle:title];
+    if (frame == [sender mainFrame])
+    {
+        NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
+        [controller updateTitleAndURL:title withURL:url];
+    }
+}
+
+- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
+    // Only report feedback for the main frame.
+    if (frame == [sender mainFrame])
+    {
+        NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
+        [controller updateURL:url];
+    }
 }
 @end

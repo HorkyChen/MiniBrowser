@@ -9,11 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-@interface MiniBrowserWindowController : NSWindowController<NSToolbarDelegate>
+@interface MiniBrowserWindowController : NSWindowController<NSToolbarDelegate, NSTextFieldDelegate>
 {
-    IBOutlet NSToolbar *toolbar;    
+    IBOutlet NSToolbar *toolbar;
     WebView *webView;
 }
 
 @property (nonatomic,readonly) WebView * webView;
+
+-(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url;
+-(void)updateURL:(NSString *)url;
 @end
