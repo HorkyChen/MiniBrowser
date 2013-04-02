@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-@interface MiniBrowserWindowController : NSWindowController
+@interface MiniBrowserWindowController : NSWindowController<NSToolbarDelegate>
 {
+    IBOutlet NSToolbar *toolbar;    
     WebView *webView;
 }
 
+@property (nonatomic,readonly) WebView * webView;
 @end
