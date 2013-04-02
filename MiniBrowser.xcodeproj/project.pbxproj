@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0635BB0F170A63B10064AD9A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0B170A63B10064AD9A /* back.png */; };
+		0635BB10170A63B10064AD9A /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0C170A63B10064AD9A /* forward.png */; };
+		0635BB11170A63B10064AD9A /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0D170A63B10064AD9A /* refresh.png */; };
+		0635BB12170A63B10064AD9A /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0E170A63B10064AD9A /* stop.png */; };
 		0681E6F417096EB600955434 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0681E6F317096EB600955434 /* Cocoa.framework */; };
 		0681E6FE17096EB600955434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0681E6FC17096EB600955434 /* InfoPlist.strings */; };
 		0681E70017096EB600955434 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E6FF17096EB600955434 /* main.m */; };
@@ -20,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0635BB0B170A63B10064AD9A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		0635BB0C170A63B10064AD9A /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
+		0635BB0D170A63B10064AD9A /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		0635BB0E170A63B10064AD9A /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		0681E6EF17096EB600955434 /* MiniBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0681E6F317096EB600955434 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0681E6F617096EB600955434 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -54,6 +62,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0635BB0A170A63B10064AD9A /* res */ = {
+			isa = PBXGroup;
+			children = (
+				0635BB0B170A63B10064AD9A /* back.png */,
+				0635BB0C170A63B10064AD9A /* forward.png */,
+				0635BB0D170A63B10064AD9A /* refresh.png */,
+				0635BB0E170A63B10064AD9A /* stop.png */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
 		0681E6E417096EB600955434 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +113,7 @@
 		0681E6F917096EB600955434 /* MiniBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				0635BB0A170A63B10064AD9A /* res */,
 				0681E7301709885E00955434 /* Delegates */,
 				0681E70517096EB600955434 /* MiniBrowserDocument.h */,
 				0681E70617096EB600955434 /* MiniBrowserDocument.m */,
@@ -183,6 +203,10 @@
 				0681E70417096EB600955434 /* Credits.rtf in Resources */,
 				0681E70A17096EB600955434 /* MiniBrowserDocument.xib in Resources */,
 				0681E70D17096EB700955434 /* MainMenu.xib in Resources */,
+				0635BB0F170A63B10064AD9A /* back.png in Resources */,
+				0635BB10170A63B10064AD9A /* forward.png in Resources */,
+				0635BB11170A63B10064AD9A /* refresh.png in Resources */,
+				0635BB12170A63B10064AD9A /* stop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
