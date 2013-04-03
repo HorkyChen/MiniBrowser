@@ -9,15 +9,16 @@
 #import "MiniBrowserWindowController.h"
 #import "MiniBrowserFrameLoaderClients.h"
 
-#define kBackToolbarItemID      @"Back"
-#define kForwardToolbarItemID      @"Forward"
-#define kRefreshToolbarItemID      @"Refresh"
-#define kStopToolbarItemID      @"Stop"
-#define kAddressBarID @"Address"
+const static NSString * kBackToolbarItemID = @"Back";
+const static NSString * kForwardToolbarItemID = @"Forward";
+const static NSString * kRefreshToolbarItemID = @"Refresh";
+const static NSString * kStopToolbarItemID = @"Stop";
+const static NSString * kAddressToolbarItemID = @"Address";
+const static NSString * kGoToolbaritemID = @"Go";
 
-#define kDefaultWebPage @"http://www.baidu.com"
+const static NSString * kDefaultWebPage = @"http://www.baidu.com";
 
-#define kToolBarICONWidth 32
+const static int kToolBarICONWidth = 32;
 //#define OPEN_IN_NEW_WINDOW
 
 @interface MiniBrowserWindowController ()
@@ -110,7 +111,7 @@
 
 -(void)updateURL:(NSString *)url
 {
-    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressBarID];
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressToolbarItemID];
     assert(item);
     [(NSTextField *)[item view] setStringValue:url];
 }
@@ -118,7 +119,13 @@
 #pragma mark - UI Actions
 -(void)loadURL:(NSString *)url
 {
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    NSString * targetURL = url;
+    if(! [[url lowercaseString] hasPrefix:@"http://"])
+    {
+        targetURL = [NSString stringWithFormat:@"http://%@",url];
+    }
+    
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:targetURL]]];
 }
 
 -(void)loadRequest:(NSURLRequest *)urlRequest
@@ -126,18 +133,43 @@
     [[webView mainFrame] loadRequest:urlRequest];
 }
 
+- (IBAction)openNewURL:(id)sender
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressToolbarItemID];
+    [self loadURL:[(NSTextField *)[item view] stringValue]];
+}
+
 -(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
 {
     NSToolbarItem * result;
     for(NSToolbarItem * item in [[[self window] toolbar] items])
     {
-        if([[item itemIdentifier] isEqualToString:kAddressBarID])
+        if([[item itemIdentifier] isEqualToString:identifier])
         {
             result = item;
             break;
         }
     }
     return result;
+}
+
+#pragma mark - Address Editor Delegate
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
+ forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+    return nil;
+}
+
+-(void)controlTextDidEndEditing:(NSNotification *)notification
+{
+    // See if it was due to a return
+    if ( [[[notification userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement )
+    {
+        NSTextView * fieldEditor = [[notification userInfo] objectForKey:@"NSFieldEditor"];
+        NSString * theString = [[fieldEditor textStorage] string];
+        NSTextField * controller = [notification object];
+        [controller.window.delegate performSelector:@selector(loadURL:) withObject:theString];
+    }
 }
 
 #pragma mark - Toolbar Delegates
@@ -177,7 +209,7 @@
         [item setMenuFormRepresentation:mItem];
     }
     
-    if ([identifier isEqual: kAddressBarID])
+    if ([identifier isEqual: kAddressToolbarItemID])
     {
         [item setMinSize: NSSizeFromString(@"{width=100; height=32}")];
         [item setMaxSize: NSSizeFromString(@"{width=800; height=32}")];
@@ -236,20 +268,32 @@
                                                action:@selector(stopLoading:)
                                                  menu:nil];
     }
-    else if ([itemIdentifier isEqualToString:kAddressBarID])
+    else if ([itemIdentifier isEqualToString:kAddressToolbarItemID])
     {
         NSRect editorRect = NSRectFromCGRect(CGRectMake(4*kToolBarICONWidth,5,200,kToolBarICONWidth));
         NSTextField * addressEditor = [[NSTextField alloc] initWithFrame:editorRect];
         [addressEditor setBezelStyle:NSTextFieldRoundedBezel];
         [addressEditor setDelegate:self];
+        [addressEditor setTarget:self];
         
-        toolbarItem = [self toolbarItemWithIdentifier:kAddressBarID
+        toolbarItem = [self toolbarItemWithIdentifier:kAddressToolbarItemID
                                                 label:@""
                                           paleteLabel:@""
                                               toolTip:@"Enter the URL."
-                                               target:webView
+                                               target:self
                                           itemContent: addressEditor
                                                action:nil
+                                                 menu:nil];
+    }
+    else if ([itemIdentifier isEqualToString:kGoToolbaritemID])
+    {
+        toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
+                                                label:@"Go"
+                                          paleteLabel:@"Go"
+                                              toolTip:@"Go"
+                                               target:webView
+                                          itemContent:[NSImage imageNamed:@"go.png"]
+                                               action:@selector(openNewURL:)
                                                  menu:nil];
     }
     
@@ -262,7 +306,8 @@
             kForwardToolbarItemID,
             kRefreshToolbarItemID,
             kStopToolbarItemID,
-            kAddressBarID,
+            kAddressToolbarItemID,
+            kGoToolbaritemID,
             nil];
 }
 
@@ -272,7 +317,8 @@
             kForwardToolbarItemID,
             kRefreshToolbarItemID,
             kStopToolbarItemID,
-            kAddressBarID,
+            kAddressToolbarItemID,
+            kGoToolbaritemID,
             nil];
 }
 @end
