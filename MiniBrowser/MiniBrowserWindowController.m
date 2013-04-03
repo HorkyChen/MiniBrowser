@@ -34,7 +34,9 @@ const static int kToolBarICONWidth = 32;
     if (self = [super initWithWindowNibName:@"MiniBrowserDocument"])
     {
         frameLoaderClient = [[MiniBrowserFrameLoaderClients alloc] initWithController:self];
+        [self enableWebInspector];
     }
+    
     return self;
 }
 
@@ -43,6 +45,12 @@ const static int kToolBarICONWidth = 32;
     [webView release];
     
     [super dealloc];
+}
+
+-(void)enableWebInspector
+{
+    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"WebKitDeveloperExtras"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)awakeFromNib
