@@ -19,4 +19,5 @@
 
 -(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url;
 -(void)updateURL:(NSString *)url;
+-(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount;
 @end

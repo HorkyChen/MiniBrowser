@@ -9,14 +9,15 @@
 #import "MiniBrowserWindowController.h"
 #import "MiniBrowserFrameLoaderClients.h"
 
-const static NSString * kBackToolbarItemID = @"Back";
-const static NSString * kForwardToolbarItemID = @"Forward";
-const static NSString * kRefreshToolbarItemID = @"Refresh";
-const static NSString * kStopToolbarItemID = @"Stop";
-const static NSString * kAddressToolbarItemID = @"Address";
-const static NSString * kGoToolbaritemID = @"Go";
+#define kBackToolbarItemID  @"Back"
+#define kForwardToolbarItemID  @"Forward"
+#define kRefreshToolbarItemID   @"Refresh"
+#define kStopToolbarItemID   @"Stop"
+#define kAddressToolbarItemID   @"Address"
+#define kGoToolbaritemID   @"Go"
+#define kProgressToolbaritemID   @"Progress"
 
-const static NSString * kDefaultWebPage = @"http://www.baidu.com";
+#define kDefaultWebPage   @"http://www.baidu.com"
 
 const static int kToolBarICONWidth = 32;
 //#define OPEN_IN_NEW_WINDOW
@@ -81,6 +82,7 @@ const static int kToolBarICONWidth = 32;
     
     [webView setUIDelegate:self];
     [webView setFrameLoadDelegate:frameLoaderClient];
+    [webView setResourceLoadDelegate:frameLoaderClient];
     
     [mainView addSubview:webView];
     
@@ -122,6 +124,22 @@ const static int kToolBarICONWidth = 32;
     NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressToolbarItemID];
     assert(item);
     [(NSTextField *)[item view] setStringValue:url];
+}
+
+-(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
+    assert(item);
+    if( (completedCount+errorCount) == totalCount)
+    {
+        [(NSProgressIndicator *)[item view] stopAnimation:nil];
+        [(NSProgressIndicator *)[item view] setHidden:YES];
+    }
+    else
+    {
+        [(NSProgressIndicator *)[item view] setHidden:NO];
+        [(NSProgressIndicator *)[item view] startAnimation:nil];
+    }
 }
 
 #pragma mark - UI Actions
@@ -234,7 +252,7 @@ const static int kToolBarICONWidth = 32;
     
     if ([itemIdentifier isEqualToString:kBackToolbarItemID])
     {
-        toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
+        toolbarItem = [self toolbarItemWithIdentifier:kBackToolbarItemID
                                                 label:@"Back"
                                           paleteLabel:@"Back"
                                               toolTip:@"Backward."
@@ -245,7 +263,7 @@ const static int kToolBarICONWidth = 32;
     }
     else if ([itemIdentifier isEqualToString:kForwardToolbarItemID])
     {
-        toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
+        toolbarItem = [self toolbarItemWithIdentifier:kForwardToolbarItemID
                                                 label:@"Forward"
                                           paleteLabel:@"Forward"
                                               toolTip:@"Forward."
@@ -267,7 +285,7 @@ const static int kToolBarICONWidth = 32;
     }
     else if ([itemIdentifier isEqualToString:kStopToolbarItemID])
     {
-        toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
+        toolbarItem = [self toolbarItemWithIdentifier:kStopToolbarItemID
                                                 label:@"Stop"
                                           paleteLabel:@"Stop"
                                               toolTip:@"Stop the loading"
@@ -295,13 +313,29 @@ const static int kToolBarICONWidth = 32;
     }
     else if ([itemIdentifier isEqualToString:kGoToolbaritemID])
     {
-        toolbarItem = [self toolbarItemWithIdentifier:kRefreshToolbarItemID
+        toolbarItem = [self toolbarItemWithIdentifier:kGoToolbaritemID
                                                 label:@"Go"
                                           paleteLabel:@"Go"
                                               toolTip:@"Go"
                                                target:webView
                                           itemContent:[NSImage imageNamed:@"go.png"]
                                                action:@selector(openNewURL:)
+                                                 menu:nil];
+    }
+    else if ([itemIdentifier isEqualToString:kProgressToolbaritemID])
+    {
+        NSRect rect = NSRectFromCGRect(CGRectMake(0,0,kToolBarICONWidth,kToolBarICONWidth));
+        NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:rect];
+        [progressBar setStyle:NSProgressIndicatorSpinningStyle];
+        [progressBar startAnimation:nil];
+        
+        toolbarItem = [self toolbarItemWithIdentifier:kProgressToolbaritemID
+                                                label:@"Progress"
+                                          paleteLabel:@"Progress"
+                                              toolTip:@"Progress"
+                                               target:webView
+                                          itemContent:progressBar
+                                               action:nil
                                                  menu:nil];
     }
     
@@ -316,6 +350,7 @@ const static int kToolBarICONWidth = 32;
             kStopToolbarItemID,
             kAddressToolbarItemID,
             kGoToolbaritemID,
+            kProgressToolbaritemID,
             nil];
 }
 
@@ -327,6 +362,7 @@ const static int kToolBarICONWidth = 32;
             kStopToolbarItemID,
             kAddressToolbarItemID,
             kGoToolbaritemID,
+            kProgressToolbaritemID,
             nil];
 }
 @end

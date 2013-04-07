@@ -9,7 +9,11 @@
 #import "MiniBrowserFrameLoaderClients.h"
 
 @interface MiniBrowserFrameLoaderClients ()
-
+{
+    int resourceCount;
+    int resourceFailedCount;
+    int resourceCompletedCount;
+}
 @end
 
 @implementation MiniBrowserFrameLoaderClients
@@ -40,6 +44,50 @@
     {
         NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
         [controller updateURL:url];
+        
+        resourceFailedCount = 0;
     }
+}
+
+- (id)webView:(WebView *)sender
+identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource
+                                                                    *)dataSource
+{
+    // Return some object that can be used to identify this resource
+    return [NSNumber numberWithInt:resourceCount++];
+}
+
+-(NSURLRequest *)webView:(WebView *)sender
+                resource:(id)identifier
+         willSendRequest:(NSURLRequest *)request
+        redirectResponse:(NSURLResponse *)redirectResponse
+          fromDataSource:(WebDataSource *)dataSource
+{
+    // Update the status message
+    [self updateResourceStatus];
+    return request;
+}
+
+-(void)webView:(WebView *)sender resource:(id)identifier
+didFailLoadingWithError:(NSError *)error
+fromDataSource:(WebDataSource *)dataSource
+{
+    resourceFailedCount++;
+    // Update the status message
+    [self updateResourceStatus];
+}
+
+-(void)webView:(WebView *)sender
+      resource:(id)identifier
+didFinishLoadingFromDataSource:(WebDataSource *)dataSource
+{
+    resourceCompletedCount++;
+    // Update the status message
+    [self updateResourceStatus];
+}
+
+-(void)updateResourceStatus
+{
+    [controller updateProgress:resourceCompletedCount withTotalCount:resourceCount withErrorCount:resourceFailedCount];
 }
 @end
