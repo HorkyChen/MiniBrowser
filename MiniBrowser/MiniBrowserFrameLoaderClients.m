@@ -7,6 +7,7 @@
 //
 #import <WebKit/WebKit.h>
 #import "MiniBrowserFrameLoaderClients.h"
+#import "ASLogger.h"
 
 @interface MiniBrowserFrameLoaderClients ()
 {
@@ -28,6 +29,8 @@
     }
     return self;
 }
+
+#pragma mark - Frame Loading Delegate
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
@@ -57,10 +60,27 @@
     }
 }
 
-- (id)webView:(WebView *)sender
-identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource
-                                                                    *)dataSource
+- (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
 {
+    if (frame == [sender mainFrame])
+    {
+        [controller handleErrorInformation:error];
+    }
+}
+
+- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
+{
+    if (frame == [sender mainFrame])
+    {
+        [controller handleErrorInformation:error];
+    }
+}
+
+#pragma mark - Resource Loading Delegate
+
+- (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource
+{
+    ASLogInfo(@"Loading:%@",[[request URL] relativeString]);
     // Return some object that can be used to identify this resource
     return [NSNumber numberWithInt:resourceCount++];
 }
@@ -76,10 +96,17 @@ identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSourc
     return request;
 }
 
--(void)webView:(WebView *)sender resource:(id)identifier
-didFailLoadingWithError:(NSError *)error
+-(void)webView:(WebView *)sender resource:(id)identifier  didFailLoadingWithError:(NSError *)error
 fromDataSource:(WebDataSource *)dataSource
 {
+    if([dataSource subresources] && [[dataSource subresources] count])
+    {
+        ASLogInfo(@"Failed:%@",[[[[dataSource subresources] objectAtIndex:0] URL] relativeString]);
+    }
+    else
+    {
+        ASLogInfo(@"Failed:%@",[[[dataSource request] URL] relativeString]);
+    }
     resourceFailedCount++;
     // Update the status message
     [self updateResourceStatus];
@@ -87,8 +114,16 @@ fromDataSource:(WebDataSource *)dataSource
 
 -(void)webView:(WebView *)sender
       resource:(id)identifier
-didFinishLoadingFromDataSource:(WebDataSource *)dataSource
+    didFinishLoadingFromDataSource:(WebDataSource *)dataSource
 {
+    if([dataSource subresources] && [[dataSource subresources] count] )
+    {
+        ASLogInfo(@"Loaded:%@",[[[[dataSource subresources] objectAtIndex:0] URL] relativeString]);
+    }
+    else
+    {
+        ASLogInfo(@"Loaded:%@",[[[dataSource request] URL] relativeString]);
+    }
     resourceCompletedCount++;
     // Update the status message
     [self updateResourceStatus];

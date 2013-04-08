@@ -21,4 +21,5 @@
 -(void)updateURL:(NSString *)url;
 -(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount;
 -(void)finishedFrameLoading;
+-(void)handleErrorInformation:(NSError *)error;
 @end

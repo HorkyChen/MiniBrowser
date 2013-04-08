@@ -10,12 +10,13 @@
 #import "MiniBrowserWindowController.h"
 
 @implementation MiniBrowserDocument
+@synthesize currentUserAgent;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        // Add your subclass-specific initialization here.
+        self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
     }
     return self;
 }
@@ -67,4 +68,36 @@
     return YES;
 }
 
+- (IBAction)saveDocument:(id)sender
+{
+    return;
+}
+
+-(IBAction)chooseUCBrowserIpadUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_UCBROWSER_IPAD;
+    [self reloadAfterUAChanged];
+}
+
+-(IBAction)chooseSafariIpadUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
+    [self reloadAfterUAChanged];
+}
+-(IBAction)chooseSafariMacOSUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_SAFARI_MACOS;
+    [self reloadAfterUAChanged];
+}
+
+-(void)reloadAfterUAChanged
+{
+    for(id controller in [self windowControllers])
+    {
+        if ([controller respondsToSelector:@selector(forceReload)])
+        {
+            [controller performSelector:@selector(forceReload)];
+        }
+    }
+}
 @end

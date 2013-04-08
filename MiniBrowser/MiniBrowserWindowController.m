@@ -9,18 +9,10 @@
 #import "MiniBrowserWindowController.h"
 #import "MiniBrowserFrameLoaderClients.h"
 #import "MiniBrowserPolicyDelegate.h"
+#include "CommonDefinition.h"
+#import "MiniBrowserDocument.h"
 
-#define kBackToolbarItemID  @"Back"
-#define kForwardToolbarItemID  @"Forward"
-#define kRefreshToolbarItemID   @"Refresh"
-#define kStopToolbarItemID   @"Stop"
-#define kAddressToolbarItemID   @"Address"
-#define kGoToolbaritemID   @"Go"
-#define kProgressToolbaritemID   @"Progress"
-
-#define kDefaultWebPage   @"http://www.baidu.com"
-
-const static int kToolBarICONWidth = 32;
+const int kToolBarICONWidth = 32;
 //#define OPEN_IN_NEW_WINDOW
 
 @interface MiniBrowserWindowController ()
@@ -81,7 +73,6 @@ const static int kToolBarICONWidth = 32;
     NSView *mainView = [[self window] contentView];
     
     webView = [[WebView alloc] initWithFrame:[mainView bounds] frameName:@"" groupName:@""];
-    [webView setCustomUserAgent:@"Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25"];
     
     [webView setUIDelegate:self];
     [webView setFrameLoadDelegate:frameLoaderClient];
@@ -90,13 +81,45 @@ const static int kToolBarICONWidth = 32;
     
     [mainView addSubview:webView];
     
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kDefaultWebPage]]];
+    [self loadURL:kDefaultWebPage];
 }
 
-- (void)windowDidResize:(NSNotification *)notification {
+- (void)close
+{
+    //Clear the delegates
+    [webView setUIDelegate:nil];
+    [webView setFrameLoadDelegate:nil];
+    [webView setResourceLoadDelegate:nil];
+    [webView setPolicyDelegate:nil];
+    
+    [super close];
+}
+
+- (void)windowDidResize:(NSNotification *)notification
+{
     [webView setFrame:[[[self window] contentView] bounds]];
 }
 
+-(void)updateUserAgent
+{
+    MiniBrowserDocument * document = [self document];
+    NSString * userAgent ;
+    switch(document.currentUserAgent)
+    {
+        case USER_AGENT_SAFARI_IPAD:
+            userAgent = UserAgent_SafariIpad;
+            break;
+        case USER_AGENT_SAFARI_MACOS:
+            userAgent = UserAgent_SafariMacOS;
+            break;
+        case USER_AGENT_UCBROWSER_IPAD:
+        default:
+            userAgent = UserAgent_UCBrowserIpad;
+            break;
+    }
+    
+    [webView setCustomUserAgent:userAgent];
+}
 #pragma mark - WebView UI Delegates
 -(WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
@@ -132,9 +155,9 @@ const static int kToolBarICONWidth = 32;
 
 -(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount
 {
-    NSLog(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
+    ASLogDebug(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
     
-    if( (completedCount+errorCount) == totalCount)
+    if( (completedCount+errorCount) >= totalCount-1)
     {
         [self finishedFrameLoading];
     }
@@ -156,20 +179,48 @@ const static int kToolBarICONWidth = 32;
     [(NSProgressIndicator *)[item view] setHidden:YES];
 }
 
+-(void)handleErrorInformation:(NSError *)error
+{
+    [self showInternalWebPages:PAGE_ERROR withParameter:error];
+}
+
+-(void)showInternalWebPages:(int)pageIndex withParameter:(id)parameter
+{
+    NSString* pCurPath = [[NSBundle mainBundle] resourcePath];
+    
+    switch(pageIndex)
+    {
+        case PAGE_ERROR:
+            pCurPath = [NSString stringWithFormat:@"file://%@/errors.html?errorcode=%ld",pCurPath,[(NSError*)parameter code] ];
+            break;
+        default:
+            pCurPath = nil;
+            break;
+    }
+    
+    if(pCurPath)
+    {
+        [self loadURL:pCurPath];
+    }
+}
+
 #pragma mark - UI Actions
 -(void)loadURL:(NSString *)url
 {
     NSString * targetURL = url;
-    if(! [[url lowercaseString] hasPrefix:@"http://"])
+    if(! ( [[url lowercaseString] hasPrefix:@"http://"]
+          || [[url lowercaseString] hasPrefix:@"https://"]
+          || [[url lowercaseString] hasPrefix:@"file://"]))
     {
         targetURL = [NSString stringWithFormat:@"http://%@",url];
     }
     
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:targetURL]]];
+    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:targetURL]]];
 }
 
 -(void)loadRequest:(NSURLRequest *)urlRequest
 {
+    [self updateUserAgent];
     [[webView mainFrame] loadRequest:urlRequest];
 }
 
@@ -191,6 +242,11 @@ const static int kToolBarICONWidth = 32;
         }
     }
     return result;
+}
+
+-(void)forceReload
+{
+    [self loadURL: [webView mainFrameURL]];
 }
 
 #pragma mark - Address Editor Delegate

@@ -10,4 +10,9 @@
 #import <WebKit/WebKit.h>
 
 @interface MiniBrowserDocument : NSDocument
+@property (nonatomic) NSInteger currentUserAgent;
+
+-(IBAction)chooseUCBrowserIpadUserAgent:(id)sender;
+-(IBAction)chooseSafariIpadUserAgent:(id)sender;
+-(IBAction)chooseSafariMacOSUserAgent:(id)sender;
 @end

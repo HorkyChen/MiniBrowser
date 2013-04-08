@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06293A8F1712846F00AA4417 /* MiniBrowserPolicyDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06293A8E1712846F00AA4417 /* MiniBrowserPolicyDelegate.m */; };
+		06293A9C1712A6AA00AA4417 /* ASLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 06293A961712A6AA00AA4417 /* ASLogger.m */; };
+		06293A9D1712A6AA00AA4417 /* ASLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 06293A981712A6AA00AA4417 /* ASLQuery.m */; };
+		06293A9E1712A6AA00AA4417 /* ASLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 06293A9A1712A6AA00AA4417 /* ASLResponse.m */; };
+		06293AA71712A81500AA4417 /* errors.html in Resources */ = {isa = PBXBuildFile; fileRef = 06293AA51712A81500AA4417 /* errors.html */; };
+		06293AA81712A81500AA4417 /* Question.png in Resources */ = {isa = PBXBuildFile; fileRef = 06293AA61712A81500AA4417 /* Question.png */; };
+		06293AA91712ABB500AA4417 /* ASLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06293A941712A6AA00AA4417 /* ASLMessage.m */; };
 		0635BB0F170A63B10064AD9A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0B170A63B10064AD9A /* back.png */; };
 		0635BB10170A63B10064AD9A /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0C170A63B10064AD9A /* forward.png */; };
 		0635BB11170A63B10064AD9A /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0635BB0D170A63B10064AD9A /* refresh.png */; };
@@ -26,6 +33,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06293A8D1712846F00AA4417 /* MiniBrowserPolicyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserPolicyDelegate.h; sourceTree = "<group>"; };
+		06293A8E1712846F00AA4417 /* MiniBrowserPolicyDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserPolicyDelegate.m; sourceTree = "<group>"; };
+		06293A911712A0F800AA4417 /* CommonDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDefinition.h; sourceTree = "<group>"; };
+		06293A931712A6AA00AA4417 /* ASLMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLMessage.h; sourceTree = "<group>"; };
+		06293A941712A6AA00AA4417 /* ASLMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLMessage.m; sourceTree = "<group>"; };
+		06293A951712A6AA00AA4417 /* ASLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLogger.h; sourceTree = "<group>"; };
+		06293A961712A6AA00AA4417 /* ASLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLogger.m; sourceTree = "<group>"; };
+		06293A971712A6AA00AA4417 /* ASLQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLQuery.h; sourceTree = "<group>"; };
+		06293A981712A6AA00AA4417 /* ASLQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLQuery.m; sourceTree = "<group>"; };
+		06293A991712A6AA00AA4417 /* ASLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLResponse.h; sourceTree = "<group>"; };
+		06293A9A1712A6AA00AA4417 /* ASLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLResponse.m; sourceTree = "<group>"; };
+		06293A9F1712A74A00AA4417 /* NSData+Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		06293AA01712A74A00AA4417 /* NSData+Base64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		06293AA11712A74B00AA4417 /* NSObject+Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
+		06293AA21712A74B00AA4417 /* NSObject+Properties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
+		06293AA51712A81500AA4417 /* errors.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = errors.html; sourceTree = "<group>"; };
+		06293AA61712A81500AA4417 /* Question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question.png; sourceTree = "<group>"; };
 		0635BB0B170A63B10064AD9A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		0635BB0C170A63B10064AD9A /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
 		0635BB0D170A63B10064AD9A /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
@@ -66,9 +90,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06293A921712A6AA00AA4417 /* ASLogger */ = {
+			isa = PBXGroup;
+			children = (
+				06293A9F1712A74A00AA4417 /* NSData+Base64.h */,
+				06293AA01712A74A00AA4417 /* NSData+Base64.m */,
+				06293AA11712A74B00AA4417 /* NSObject+Properties.h */,
+				06293AA21712A74B00AA4417 /* NSObject+Properties.m */,
+				06293A931712A6AA00AA4417 /* ASLMessage.h */,
+				06293A941712A6AA00AA4417 /* ASLMessage.m */,
+				06293A951712A6AA00AA4417 /* ASLogger.h */,
+				06293A961712A6AA00AA4417 /* ASLogger.m */,
+				06293A971712A6AA00AA4417 /* ASLQuery.h */,
+				06293A981712A6AA00AA4417 /* ASLQuery.m */,
+				06293A991712A6AA00AA4417 /* ASLResponse.h */,
+				06293A9A1712A6AA00AA4417 /* ASLResponse.m */,
+			);
+			path = ASLogger;
+			sourceTree = "<group>";
+		};
+		06293AA41712A81500AA4417 /* WebPages */ = {
+			isa = PBXGroup;
+			children = (
+				06293AA51712A81500AA4417 /* errors.html */,
+				06293AA61712A81500AA4417 /* Question.png */,
+			);
+			path = WebPages;
+			sourceTree = "<group>";
+		};
 		0635BB0A170A63B10064AD9A /* res */ = {
 			isa = PBXGroup;
 			children = (
+				06293AA41712A81500AA4417 /* WebPages */,
 				069F2C94170BCB7E0081130D /* MiniBrowser.icns */,
 				0635BB8A170AE7C20064AD9A /* go.png */,
 				0635BB0B170A63B10064AD9A /* back.png */,
@@ -119,6 +172,7 @@
 		0681E6F917096EB600955434 /* MiniBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				06293A921712A6AA00AA4417 /* ASLogger */,
 				0635BB0A170A63B10064AD9A /* res */,
 				0681E7301709885E00955434 /* Delegates */,
 				0681E70517096EB600955434 /* MiniBrowserDocument.h */,
@@ -128,6 +182,7 @@
 				0681E6FA17096EB600955434 /* Supporting Files */,
 				0681E7251709797B00955434 /* MiniBrowserWindowController.h */,
 				0681E7261709797B00955434 /* MiniBrowserWindowController.m */,
+				06293A911712A0F800AA4417 /* CommonDefinition.h */,
 			);
 			path = MiniBrowser;
 			sourceTree = "<group>";
@@ -149,6 +204,8 @@
 			children = (
 				0681E72C1709885600955434 /* MiniBrowserFrameLoaderClients.h */,
 				0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */,
+				06293A8D1712846F00AA4417 /* MiniBrowserPolicyDelegate.h */,
+				06293A8E1712846F00AA4417 /* MiniBrowserPolicyDelegate.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -215,6 +272,8 @@
 				0635BB12170A63B10064AD9A /* stop.png in Resources */,
 				0635BB8B170AE7C20064AD9A /* go.png in Resources */,
 				069F2C95170BCB7E0081130D /* MiniBrowser.icns in Resources */,
+				06293AA71712A81500AA4417 /* errors.html in Resources */,
+				06293AA81712A81500AA4417 /* Question.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +288,11 @@
 				0681E70717096EB600955434 /* MiniBrowserDocument.m in Sources */,
 				0681E7271709797B00955434 /* MiniBrowserWindowController.m in Sources */,
 				0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */,
+				06293A8F1712846F00AA4417 /* MiniBrowserPolicyDelegate.m in Sources */,
+				06293A9C1712A6AA00AA4417 /* ASLogger.m in Sources */,
+				06293A9D1712A6AA00AA4417 /* ASLQuery.m in Sources */,
+				06293A9E1712A6AA00AA4417 /* ASLResponse.m in Sources */,
+				06293AA91712ABB500AA4417 /* ASLMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiniBrowser/MiniBrowser-Prefix.pch";
 				INFOPLIST_FILE = "MiniBrowser/MiniBrowser-Info.plist";
@@ -337,6 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiniBrowser/MiniBrowser-Prefix.pch";
 				INFOPLIST_FILE = "MiniBrowser/MiniBrowser-Info.plist";
