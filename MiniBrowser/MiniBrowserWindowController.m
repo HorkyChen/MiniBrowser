@@ -8,6 +8,7 @@
 
 #import "MiniBrowserWindowController.h"
 #import "MiniBrowserFrameLoaderClients.h"
+#import "MiniBrowserPolicyDelegate.h"
 
 #define kBackToolbarItemID  @"Back"
 #define kForwardToolbarItemID  @"Forward"
@@ -25,6 +26,7 @@ const static int kToolBarICONWidth = 32;
 @interface MiniBrowserWindowController ()
 {
     MiniBrowserFrameLoaderClients * frameLoaderClient;
+    MiniBrowserPolicyDelegate * policyDelegate;
 }
 @end
 
@@ -35,6 +37,7 @@ const static int kToolBarICONWidth = 32;
     if (self = [super initWithWindowNibName:@"MiniBrowserDocument"])
     {
         frameLoaderClient = [[MiniBrowserFrameLoaderClients alloc] initWithController:self];
+        policyDelegate = [[MiniBrowserPolicyDelegate alloc] initWithController:self];
         [self enableWebInspector];
     }
     
@@ -83,6 +86,7 @@ const static int kToolBarICONWidth = 32;
     [webView setUIDelegate:self];
     [webView setFrameLoadDelegate:frameLoaderClient];
     [webView setResourceLoadDelegate:frameLoaderClient];
+    [webView setPolicyDelegate:policyDelegate];
     
     [mainView addSubview:webView];
     
@@ -128,18 +132,28 @@ const static int kToolBarICONWidth = 32;
 
 -(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount
 {
-    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
-    assert(item);
+    NSLog(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
+    
     if( (completedCount+errorCount) == totalCount)
     {
-        [(NSProgressIndicator *)[item view] stopAnimation:nil];
-        [(NSProgressIndicator *)[item view] setHidden:YES];
+        [self finishedFrameLoading];
     }
     else
     {
+        NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
+        assert(item);
         [(NSProgressIndicator *)[item view] setHidden:NO];
         [(NSProgressIndicator *)[item view] startAnimation:nil];
     }
+}
+
+-(void)finishedFrameLoading
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
+    assert(item);
+    
+    [(NSProgressIndicator *)[item view] stopAnimation:nil];
+    [(NSProgressIndicator *)[item view] setHidden:YES];
 }
 
 #pragma mark - UI Actions
@@ -324,7 +338,7 @@ const static int kToolBarICONWidth = 32;
     }
     else if ([itemIdentifier isEqualToString:kProgressToolbaritemID])
     {
-        NSRect rect = NSRectFromCGRect(CGRectMake(0,0,kToolBarICONWidth,kToolBarICONWidth));
+        NSRect rect = NSRectFromCGRect(CGRectMake(0,0,24,24));
         NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:rect];
         [progressBar setStyle:NSProgressIndicatorSpinningStyle];
         [progressBar startAnimation:nil];

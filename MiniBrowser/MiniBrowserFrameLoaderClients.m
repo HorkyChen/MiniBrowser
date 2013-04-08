@@ -49,6 +49,14 @@
     }
 }
 
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+    if (frame == [sender mainFrame])
+    {
+        [controller finishedFrameLoading];
+    }
+}
+
 - (id)webView:(WebView *)sender
 identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource
                                                                     *)dataSource
