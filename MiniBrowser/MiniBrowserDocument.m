@@ -77,17 +77,39 @@
 {
     self.currentUserAgent = USER_AGENT_UCBROWSER_IPAD;
     [self reloadAfterUAChanged];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to UCBrowser(iPad)");
 }
 
 -(IBAction)chooseSafariIpadUserAgent:(id)sender
 {
     self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
     [self reloadAfterUAChanged];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Safari(iPad)");
 }
 -(IBAction)chooseSafariMacOSUserAgent:(id)sender
 {
     self.currentUserAgent = USER_AGENT_SAFARI_MACOS;
     [self reloadAfterUAChanged];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Safari(Mac OS)");
+}
+-(IBAction)chooseChromeUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_CHROME;
+    [self reloadAfterUAChanged];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Chrome(Mac OS)");
+}
+-(void)updateUAMenuItems:(NSMenuItem *)item
+{
+    NSMenu *menu = [item menu];
+    for(NSMenuItem *subitem in [menu itemArray])
+    {
+        [subitem setState:NSOffState];
+    }
+    [item setState:NSOnState];
 }
 
 -(void)reloadAfterUAChanged

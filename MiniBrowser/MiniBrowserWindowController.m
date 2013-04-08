@@ -112,6 +112,9 @@ const int kToolBarICONWidth = 32;
         case USER_AGENT_SAFARI_MACOS:
             userAgent = UserAgent_SafariMacOS;
             break;
+        case USER_AGENT_CHROME:
+            userAgent = UserAgent_Chrome;
+            break;
         case USER_AGENT_UCBROWSER_IPAD:
         default:
             userAgent = UserAgent_UCBrowserIpad;

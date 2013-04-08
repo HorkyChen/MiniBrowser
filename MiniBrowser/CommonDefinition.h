@@ -18,7 +18,8 @@ typedef enum{
 typedef enum{
     USER_AGENT_UCBROWSER_IPAD,
     USER_AGENT_SAFARI_IPAD,
-    USER_AGENT_SAFARI_MACOS
+    USER_AGENT_SAFARI_MACOS,
+    USER_AGENT_CHROME
 } USER_AGENT_LIST;
 
 #define kBackToolbarItemID  @"Back"
@@ -34,4 +35,5 @@ typedef enum{
 #define UserAgent_UCBrowserIpad @"Mozilla/5.0(iPad; U;CPU OS 6 like Mac OS X; zh-CN; x86_64) AppleWebKit/534.46 (KHTML, like Gecko) UCBrowser/2.0.0.164 U3/0.8.0 Safari/7543.48.3"
 #define UserAgent_SafariIpad @"Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25"
 #define UserAgent_SafariMacOS @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.28.10 (KHTML, like Gecko) Version/6.0.3 Safari/536.28.10"
+#define UserAgent_Chrome @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.43 Safari/537.31"
 #endif

@@ -15,4 +15,5 @@
 -(IBAction)chooseUCBrowserIpadUserAgent:(id)sender;
 -(IBAction)chooseSafariIpadUserAgent:(id)sender;
 -(IBAction)chooseSafariMacOSUserAgent:(id)sender;
+-(IBAction)chooseChromeUserAgent:(id)sender;
 @end
