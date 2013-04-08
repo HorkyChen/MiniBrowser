@@ -160,7 +160,7 @@ const int kToolBarICONWidth = 32;
 {
     ASLogDebug(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
     
-    if( (completedCount+errorCount) >= totalCount-1)
+    if( (completedCount+errorCount) >= totalCount)
     {
         [self finishedFrameLoading];
     }

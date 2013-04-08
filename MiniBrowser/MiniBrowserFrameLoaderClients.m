@@ -48,7 +48,7 @@
         NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
         [controller updateURL:url];
         
-        resourceFailedCount = 0;
+        [self clearResourceCount];
     }
 }
 
@@ -81,7 +81,6 @@
 - (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource
 {
     ASLogInfo(@"Loading:%@",[[request URL] relativeString]);
-    // Return some object that can be used to identify this resource
     return [NSNumber numberWithInt:resourceCount++];
 }
 
@@ -132,5 +131,12 @@ fromDataSource:(WebDataSource *)dataSource
 -(void)updateResourceStatus
 {
     [controller updateProgress:resourceCompletedCount withTotalCount:resourceCount withErrorCount:resourceFailedCount];
+}
+
+-(void)clearResourceCount
+{
+    resourceCompletedCount = 0;
+    resourceCount = 0;
+    resourceFailedCount = 0;
 }
 @end
