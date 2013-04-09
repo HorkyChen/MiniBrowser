@@ -9,18 +9,6 @@
 #import "MiniBrowserPolicyDelegate.h"
 
 @implementation MiniBrowserPolicyDelegate
-
--initWithController:(MiniBrowserWindowController *)aController
-{
-    self = [super init];
-    
-    if(self)
-    {
-        controller = aController;
-    }
-    return self;
-}
-
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation
         request:(NSURLRequest *)request frame:(WebFrame *)frame
         decisionListener:(id)listener

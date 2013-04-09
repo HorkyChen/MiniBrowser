@@ -30,6 +30,7 @@
 		0681E7271709797B00955434 /* MiniBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E7261709797B00955434 /* MiniBrowserWindowController.m */; };
 		0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */; };
 		069F2C95170BCB7E0081130D /* MiniBrowser.icns in Resources */ = {isa = PBXBuildFile; fileRef = 069F2C94170BCB7E0081130D /* MiniBrowser.icns */; };
+		06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		06293AA21712A74B00AA4417 /* NSObject+Properties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
 		06293AA51712A81500AA4417 /* errors.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = errors.html; sourceTree = "<group>"; };
 		06293AA61712A81500AA4417 /* Question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question.png; sourceTree = "<group>"; };
+		06293B7E1713A57E00AA4417 /* WebInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebInspector.h; sourceTree = "<group>"; };
 		0635BB0B170A63B10064AD9A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		0635BB0C170A63B10064AD9A /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
 		0635BB0D170A63B10064AD9A /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
@@ -75,6 +77,8 @@
 		0681E72C1709885600955434 /* MiniBrowserFrameLoaderClients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserFrameLoaderClients.h; sourceTree = "<group>"; };
 		0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserFrameLoaderClients.m; sourceTree = "<group>"; };
 		069F2C94170BCB7E0081130D /* MiniBrowser.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MiniBrowser.icns; sourceTree = "<group>"; };
+		06C8E1F81714120D00E9E102 /* MiniBrowserWebViewDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserWebViewDelegates.h; sourceTree = "<group>"; };
+		06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserWebViewDelegates.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +187,7 @@
 				0681E7251709797B00955434 /* MiniBrowserWindowController.h */,
 				0681E7261709797B00955434 /* MiniBrowserWindowController.m */,
 				06293A911712A0F800AA4417 /* CommonDefinition.h */,
+				06293B7E1713A57E00AA4417 /* WebInspector.h */,
 			);
 			path = MiniBrowser;
 			sourceTree = "<group>";
@@ -206,6 +211,8 @@
 				0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */,
 				06293A8D1712846F00AA4417 /* MiniBrowserPolicyDelegate.h */,
 				06293A8E1712846F00AA4417 /* MiniBrowserPolicyDelegate.m */,
+				06C8E1F81714120D00E9E102 /* MiniBrowserWebViewDelegates.h */,
+				06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -293,6 +300,7 @@
 				06293A9D1712A6AA00AA4417 /* ASLQuery.m in Sources */,
 				06293A9E1712A6AA00AA4417 /* ASLResponse.m in Sources */,
 				06293AA91712ABB500AA4417 /* ASLMessage.m in Sources */,
+				06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,11 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MiniBrowserWindowController.h"
+#import "MiniBrowserWebViewDelegates.h"
 
-@interface MiniBrowserPolicyDelegate : NSObject
-{
-    MiniBrowserWindowController * controller;
-}
--initWithController:(MiniBrowserWindowController *)aController;
+@interface MiniBrowserPolicyDelegate : MiniBrowserWebViewDelegates
 @end

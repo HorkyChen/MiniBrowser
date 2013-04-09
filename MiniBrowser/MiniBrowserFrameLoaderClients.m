@@ -19,17 +19,6 @@
 
 @implementation MiniBrowserFrameLoaderClients
 
--initWithController:(MiniBrowserWindowController *)aController
-{
-    self = [super init];
-    
-    if(self)
-    {
-        controller = aController;
-    }
-    return self;
-}
-
 #pragma mark - Frame Loading Delegate
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
