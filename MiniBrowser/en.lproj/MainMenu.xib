@@ -707,7 +707,7 @@
 							<string key="NSName">_NSWindowsMenu</string>
 						</object>
 					</object>
-					<object class="NSMenuItem" id="741517220">
+					<object class="NSMenuItem" id="152501190">
 						<reference key="NSMenu" ref="649796088"/>
 						<string key="NSTitle">Developer</string>
 						<string key="NSKeyEquiv"/>
@@ -715,30 +715,30 @@
 						<reference key="NSOnImage" ref="1033313550"/>
 						<reference key="NSMixedImage" ref="310636482"/>
 						<string key="NSAction">submenuAction:</string>
-						<object class="NSMenu" key="NSSubmenu" id="31044427">
+						<object class="NSMenu" key="NSSubmenu" id="387437654">
 							<string key="NSTitle">Developer</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="551390089">
-									<reference key="NSMenu" ref="31044427"/>
+								<object class="NSMenuItem" id="597704144">
+									<reference key="NSMenu" ref="387437654"/>
 									<string key="NSTitle">User Agent</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 									<string key="NSAction">submenuAction:</string>
-									<object class="NSMenu" key="NSSubmenu" id="372455728">
+									<object class="NSMenu" key="NSSubmenu" id="805973128">
 										<string key="NSTitle">User Agent</string>
 										<array class="NSMutableArray" key="NSMenuItems">
-											<object class="NSMenuItem" id="635326864">
-												<reference key="NSMenu" ref="372455728"/>
+											<object class="NSMenuItem" id="515791508">
+												<reference key="NSMenu" ref="805973128"/>
 												<string key="NSTitle">UC Browser(iPad)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="382652">
-												<reference key="NSMenu" ref="372455728"/>
+											<object class="NSMenuItem" id="370482514">
+												<reference key="NSMenu" ref="805973128"/>
 												<string key="NSTitle">Safari (iPad)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -746,16 +746,16 @@
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="44296476">
-												<reference key="NSMenu" ref="372455728"/>
+											<object class="NSMenuItem" id="586916813">
+												<reference key="NSMenu" ref="805973128"/>
 												<string key="NSTitle">Safari (Mac OS)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="628191205">
-												<reference key="NSMenu" ref="372455728"/>
+											<object class="NSMenuItem" id="632852391">
+												<reference key="NSMenu" ref="805973128"/>
 												<string key="NSTitle">Chrome (Mac OS)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -765,8 +765,8 @@
 										</array>
 									</object>
 								</object>
-								<object class="NSMenuItem" id="191708509">
-									<reference key="NSMenu" ref="31044427"/>
+								<object class="NSMenuItem" id="467991763">
+									<reference key="NSMenu" ref="387437654"/>
 									<string key="NSTitle">Show Web Inspector</string>
 									<string key="NSKeyEquiv">i</string>
 									<int key="NSKeyEquivModMask">1572864</int>
@@ -774,8 +774,8 @@
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 								</object>
-								<object class="NSMenuItem" id="436384551">
-									<reference key="NSMenu" ref="31044427"/>
+								<object class="NSMenuItem" id="877941805">
+									<reference key="NSMenu" ref="387437654"/>
 									<string key="NSTitle">Show JavaScript Console</string>
 									<string key="NSKeyEquiv">j</string>
 									<int key="NSKeyEquivModMask">1572864</int>
@@ -902,22 +902,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">paste:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="29853731"/>
-					</object>
-					<int key="connectionID">226</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">stopSpeaking:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="680220178"/>
-					</object>
-					<int key="connectionID">227</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">cut:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="296257095"/>
@@ -926,35 +910,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showGuessPanel:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="679648819"/>
-					</object>
-					<int key="connectionID">230</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">redo:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="790794224"/>
-					</object>
-					<int key="connectionID">231</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">selectAll:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="583158037"/>
 					</object>
 					<int key="connectionID">232</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">startSpeaking:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="731782645"/>
-					</object>
-					<int key="connectionID">233</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -974,43 +934,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="447796847"/>
-					</object>
-					<int key="connectionID">241</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleGrammarChecking:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="967646866"/>
-					</object>
-					<int key="connectionID">347</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleSmartInsertDelete:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="605118523"/>
 					</object>
 					<int key="connectionID">355</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleAutomaticQuoteSubstitution:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="197661976"/>
-					</object>
-					<int key="connectionID">356</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleAutomaticLinkDetection:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="708854459"/>
-					</object>
-					<int key="connectionID">357</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1054,22 +982,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">lowercaseWord:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="740446531"/>
-					</object>
-					<int key="connectionID">455</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">uppercaseWord:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="372238911"/>
-					</object>
-					<int key="connectionID">456</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleAutomaticDashSubstitution:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="618524225"/>
@@ -1102,38 +1014,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="326711663"/>
-					</object>
-					<int key="connectionID">467</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="270902937"/>
-					</object>
-					<int key="connectionID">468</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="159080638"/>
-					</object>
-					<int key="connectionID">469</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">pasteAsPlainText:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="763435172"/>
-					</object>
-					<int key="connectionID">471</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showHelp:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="253952766"/>
@@ -1142,17 +1022,9 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="607107047"/>
-					</object>
-					<int key="connectionID">533</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseSafariIpadUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="382652"/>
+						<reference key="destination" ref="370482514"/>
 					</object>
 					<int key="connectionID">563</int>
 				</object>
@@ -1160,7 +1032,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseSafariMacOSUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="44296476"/>
+						<reference key="destination" ref="586916813"/>
 					</object>
 					<int key="connectionID">564</int>
 				</object>
@@ -1168,7 +1040,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseUCBrowserIpadUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="635326864"/>
+						<reference key="destination" ref="515791508"/>
 					</object>
 					<int key="connectionID">565</int>
 				</object>
@@ -1176,7 +1048,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseChromeUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="628191205"/>
+						<reference key="destination" ref="632852391"/>
 					</object>
 					<int key="connectionID">567</int>
 				</object>
@@ -1184,7 +1056,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showJavaScriptConsole:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="436384551"/>
+						<reference key="destination" ref="877941805"/>
 					</object>
 					<int key="connectionID">570</int>
 				</object>
@@ -1192,7 +1064,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showWebInspector:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="191708509"/>
+						<reference key="destination" ref="467991763"/>
 					</object>
 					<int key="connectionID">571</int>
 				</object>
@@ -1233,7 +1105,7 @@
 							<reference ref="379814623"/>
 							<reference ref="470804886"/>
 							<reference ref="1050483726"/>
-							<reference ref="741517220"/>
+							<reference ref="152501190"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1749,70 +1621,70 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">543</int>
-						<reference key="object" ref="741517220"/>
+						<reference key="object" ref="152501190"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="31044427"/>
+							<reference ref="387437654"/>
 						</array>
 						<reference key="parent" ref="649796088"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">544</int>
-						<reference key="object" ref="31044427"/>
+						<reference key="object" ref="387437654"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="551390089"/>
-							<reference ref="191708509"/>
-							<reference ref="436384551"/>
+							<reference ref="597704144"/>
+							<reference ref="467991763"/>
+							<reference ref="877941805"/>
 						</array>
-						<reference key="parent" ref="741517220"/>
+						<reference key="parent" ref="152501190"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">555</int>
-						<reference key="object" ref="551390089"/>
+						<reference key="object" ref="597704144"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="372455728"/>
+							<reference ref="805973128"/>
 						</array>
-						<reference key="parent" ref="31044427"/>
+						<reference key="parent" ref="387437654"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">556</int>
-						<reference key="object" ref="372455728"/>
+						<reference key="object" ref="805973128"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="635326864"/>
-							<reference ref="382652"/>
-							<reference ref="44296476"/>
-							<reference ref="628191205"/>
+							<reference ref="515791508"/>
+							<reference ref="370482514"/>
+							<reference ref="586916813"/>
+							<reference ref="632852391"/>
 						</array>
-						<reference key="parent" ref="551390089"/>
+						<reference key="parent" ref="597704144"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">557</int>
-						<reference key="object" ref="635326864"/>
-						<reference key="parent" ref="372455728"/>
+						<reference key="object" ref="515791508"/>
+						<reference key="parent" ref="805973128"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">558</int>
-						<reference key="object" ref="382652"/>
-						<reference key="parent" ref="372455728"/>
+						<reference key="object" ref="370482514"/>
+						<reference key="parent" ref="805973128"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">559</int>
-						<reference key="object" ref="44296476"/>
-						<reference key="parent" ref="372455728"/>
+						<reference key="object" ref="586916813"/>
+						<reference key="parent" ref="805973128"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">566</int>
-						<reference key="object" ref="628191205"/>
-						<reference key="parent" ref="372455728"/>
+						<reference key="object" ref="632852391"/>
+						<reference key="parent" ref="805973128"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">568</int>
-						<reference key="object" ref="191708509"/>
-						<reference key="parent" ref="31044427"/>
+						<reference key="object" ref="467991763"/>
+						<reference key="parent" ref="387437654"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">569</int>
-						<reference key="object" ref="436384551"/>
-						<reference key="parent" ref="31044427"/>
+						<reference key="object" ref="877941805"/>
+						<reference key="parent" ref="387437654"/>
 					</object>
 				</array>
 			</object>
