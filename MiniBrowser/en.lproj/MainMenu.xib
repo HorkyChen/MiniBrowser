@@ -707,7 +707,7 @@
 							<string key="NSName">_NSWindowsMenu</string>
 						</object>
 					</object>
-					<object class="NSMenuItem" id="481226543">
+					<object class="NSMenuItem" id="741517220">
 						<reference key="NSMenu" ref="649796088"/>
 						<string key="NSTitle">Developer</string>
 						<string key="NSKeyEquiv"/>
@@ -715,30 +715,30 @@
 						<reference key="NSOnImage" ref="1033313550"/>
 						<reference key="NSMixedImage" ref="310636482"/>
 						<string key="NSAction">submenuAction:</string>
-						<object class="NSMenu" key="NSSubmenu" id="710122343">
+						<object class="NSMenu" key="NSSubmenu" id="31044427">
 							<string key="NSTitle">Developer</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="533525397">
-									<reference key="NSMenu" ref="710122343"/>
+								<object class="NSMenuItem" id="551390089">
+									<reference key="NSMenu" ref="31044427"/>
 									<string key="NSTitle">User Agent</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 									<string key="NSAction">submenuAction:</string>
-									<object class="NSMenu" key="NSSubmenu" id="1064574953">
+									<object class="NSMenu" key="NSSubmenu" id="372455728">
 										<string key="NSTitle">User Agent</string>
 										<array class="NSMutableArray" key="NSMenuItems">
-											<object class="NSMenuItem" id="892937653">
-												<reference key="NSMenu" ref="1064574953"/>
+											<object class="NSMenuItem" id="635326864">
+												<reference key="NSMenu" ref="372455728"/>
 												<string key="NSTitle">UC Browser(iPad)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="399474595">
-												<reference key="NSMenu" ref="1064574953"/>
+											<object class="NSMenuItem" id="382652">
+												<reference key="NSMenu" ref="372455728"/>
 												<string key="NSTitle">Safari (iPad)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -746,16 +746,16 @@
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="78829968">
-												<reference key="NSMenu" ref="1064574953"/>
+											<object class="NSMenuItem" id="44296476">
+												<reference key="NSMenu" ref="372455728"/>
 												<string key="NSTitle">Safari (Mac OS)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="1033313550"/>
 												<reference key="NSMixedImage" ref="310636482"/>
 											</object>
-											<object class="NSMenuItem" id="941602228">
-												<reference key="NSMenu" ref="1064574953"/>
+											<object class="NSMenuItem" id="628191205">
+												<reference key="NSMenu" ref="372455728"/>
 												<string key="NSTitle">Chrome (Mac OS)</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -764,6 +764,24 @@
 											</object>
 										</array>
 									</object>
+								</object>
+								<object class="NSMenuItem" id="191708509">
+									<reference key="NSMenu" ref="31044427"/>
+									<string key="NSTitle">Show Web Inspector</string>
+									<string key="NSKeyEquiv">i</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="436384551">
+									<reference key="NSMenu" ref="31044427"/>
+									<string key="NSTitle">Show JavaScript Console</string>
+									<string key="NSKeyEquiv">j</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
 								</object>
 							</array>
 							<string key="NSName">_NSHelpMenu</string>
@@ -1134,7 +1152,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseSafariIpadUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="399474595"/>
+						<reference key="destination" ref="382652"/>
 					</object>
 					<int key="connectionID">563</int>
 				</object>
@@ -1142,7 +1160,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseSafariMacOSUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="78829968"/>
+						<reference key="destination" ref="44296476"/>
 					</object>
 					<int key="connectionID">564</int>
 				</object>
@@ -1150,7 +1168,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseUCBrowserIpadUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="892937653"/>
+						<reference key="destination" ref="635326864"/>
 					</object>
 					<int key="connectionID">565</int>
 				</object>
@@ -1158,9 +1176,25 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseChromeUserAgent:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="941602228"/>
+						<reference key="destination" ref="628191205"/>
 					</object>
 					<int key="connectionID">567</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showJavaScriptConsole:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="436384551"/>
+					</object>
+					<int key="connectionID">570</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showWebInspector:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="191708509"/>
+					</object>
+					<int key="connectionID">571</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1199,7 +1233,7 @@
 							<reference ref="379814623"/>
 							<reference ref="470804886"/>
 							<reference ref="1050483726"/>
-							<reference ref="481226543"/>
+							<reference ref="741517220"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1715,58 +1749,70 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">543</int>
-						<reference key="object" ref="481226543"/>
+						<reference key="object" ref="741517220"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="710122343"/>
+							<reference ref="31044427"/>
 						</array>
 						<reference key="parent" ref="649796088"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">544</int>
-						<reference key="object" ref="710122343"/>
+						<reference key="object" ref="31044427"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="533525397"/>
+							<reference ref="551390089"/>
+							<reference ref="191708509"/>
+							<reference ref="436384551"/>
 						</array>
-						<reference key="parent" ref="481226543"/>
+						<reference key="parent" ref="741517220"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">555</int>
-						<reference key="object" ref="533525397"/>
+						<reference key="object" ref="551390089"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1064574953"/>
+							<reference ref="372455728"/>
 						</array>
-						<reference key="parent" ref="710122343"/>
+						<reference key="parent" ref="31044427"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">556</int>
-						<reference key="object" ref="1064574953"/>
+						<reference key="object" ref="372455728"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="892937653"/>
-							<reference ref="399474595"/>
-							<reference ref="78829968"/>
-							<reference ref="941602228"/>
+							<reference ref="635326864"/>
+							<reference ref="382652"/>
+							<reference ref="44296476"/>
+							<reference ref="628191205"/>
 						</array>
-						<reference key="parent" ref="533525397"/>
+						<reference key="parent" ref="551390089"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">557</int>
-						<reference key="object" ref="892937653"/>
-						<reference key="parent" ref="1064574953"/>
+						<reference key="object" ref="635326864"/>
+						<reference key="parent" ref="372455728"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">558</int>
-						<reference key="object" ref="399474595"/>
-						<reference key="parent" ref="1064574953"/>
+						<reference key="object" ref="382652"/>
+						<reference key="parent" ref="372455728"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">559</int>
-						<reference key="object" ref="78829968"/>
-						<reference key="parent" ref="1064574953"/>
+						<reference key="object" ref="44296476"/>
+						<reference key="parent" ref="372455728"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">566</int>
-						<reference key="object" ref="941602228"/>
-						<reference key="parent" ref="1064574953"/>
+						<reference key="object" ref="628191205"/>
+						<reference key="parent" ref="372455728"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">568</int>
+						<reference key="object" ref="191708509"/>
+						<reference key="parent" ref="31044427"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">569</int>
+						<reference key="object" ref="436384551"/>
+						<reference key="parent" ref="31044427"/>
 					</object>
 				</array>
 			</object>
@@ -1852,6 +1898,8 @@
 				<string key="559.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="566.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="568.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="569.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1868,7 +1916,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">567</int>
+			<int key="maxID">571</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1898,6 +1946,9 @@
 						<string key="chooseSafariIpadUserAgent:">id</string>
 						<string key="chooseSafariMacOSUserAgent:">id</string>
 						<string key="chooseUCBrowserIpadUserAgent:">id</string>
+						<string key="saveDocument:">id</string>
+						<string key="showJavaScriptConsole:">id</string>
+						<string key="showWebInspector:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="chooseChromeUserAgent:">
@@ -1916,51 +1967,22 @@
 							<string key="name">chooseUCBrowserIpadUserAgent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MiniBrowserDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSDocument</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="printDocument:">id</string>
-						<string key="revertDocumentToSaved:">id</string>
-						<string key="runPageLayout:">id</string>
-						<string key="saveDocument:">id</string>
-						<string key="saveDocumentAs:">id</string>
-						<string key="saveDocumentTo:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="printDocument:">
-							<string key="name">printDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="revertDocumentToSaved:">
-							<string key="name">revertDocumentToSaved:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runPageLayout:">
-							<string key="name">runPageLayout:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="saveDocument:">
 							<string key="name">saveDocument:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="saveDocumentAs:">
-							<string key="name">saveDocumentAs:</string>
+						<object class="IBActionInfo" key="showJavaScriptConsole:">
+							<string key="name">showJavaScriptConsole:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="saveDocumentTo:">
-							<string key="name">saveDocumentTo:</string>
+						<object class="IBActionInfo" key="showWebInspector:">
+							<string key="name">showWebInspector:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSDocument.h</string>
+						<string key="minorKey">./Classes/MiniBrowserDocument.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

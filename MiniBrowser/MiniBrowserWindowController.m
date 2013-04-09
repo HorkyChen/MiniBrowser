@@ -11,6 +11,7 @@
 #import "MiniBrowserPolicyDelegate.h"
 #include "CommonDefinition.h"
 #import "MiniBrowserDocument.h"
+#import "WebInspector.h"
 
 const int kToolBarICONWidth = 32;
 //#define OPEN_IN_NEW_WINDOW
@@ -19,6 +20,7 @@ const int kToolBarICONWidth = 32;
 {
     MiniBrowserFrameLoaderClients * frameLoaderClient;
     MiniBrowserPolicyDelegate * policyDelegate;
+    WebInspector * inspector;
 }
 @end
 
@@ -204,6 +206,26 @@ const int kToolBarICONWidth = 32;
     if(pCurPath)
     {
         [self loadURL:pCurPath];
+    }
+}
+
+-(void)showWebInspectorWithParameter:(NSNumber *)console
+{
+    if ( !webView )
+        return;
+    
+    if( !inspector ){
+        inspector = [[WebInspector alloc] initWithWebView:webView];
+        [inspector detach:webView];
+    }
+    
+    if([console boolValue])
+    {
+        [inspector showConsole:webView];
+    }
+    else
+    {
+        [inspector show:webView];
     }
 }
 

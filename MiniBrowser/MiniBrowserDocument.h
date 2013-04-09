@@ -16,4 +16,6 @@
 -(IBAction)chooseSafariIpadUserAgent:(id)sender;
 -(IBAction)chooseSafariMacOSUserAgent:(id)sender;
 -(IBAction)chooseChromeUserAgent:(id)sender;
+-(IBAction)showWebInspector:(id)sender;
+-(IBAction)showJavaScriptConsole:(id)sender;
 @end
