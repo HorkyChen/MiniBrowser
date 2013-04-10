@@ -21,6 +21,9 @@ const int kToolBarICONWidth = 32;
     MiniBrowserFrameLoaderClients * frameLoaderClient;
     MiniBrowserPolicyDelegate * policyDelegate;
     WebInspector * inspector;
+    
+    INTERNAL_PAGE_INDEX currentInternalPage;
+    WebView * internalPageWebView;
 }
 @end
 
@@ -148,31 +151,24 @@ const int kToolBarICONWidth = 32;
 #pragma mark - Window Controller Interface
 -(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url
 {
-    [[self window] setTitle:title];
+    if ( currentInternalPage )
+    {
+        [[self window] setTitle:[self getInternalPageTitle]];
+    }
+    else
+    {
+        [self bringWebViewOut];
+        [[self window] setTitle:title];
+    }
 }
 
--(void)updateURL:(NSString *)url
+-(void)handleStartingWithConfirmedURL:(NSString *)url
 {
     NSToolbarItem * item = [self getToolbarItemWithIdentifier:kAddressToolbarItemID];
     assert(item);
     [(NSTextField *)[item view] setStringValue:url];
-}
-
--(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount
-{
-    ASLogDebug(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
     
-    if( (completedCount+errorCount) >= totalCount)
-    {
-        [self finishedFrameLoading];
-    }
-    else
-    {
-        NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
-        assert(item);
-        [(NSProgressIndicator *)[item view] setHidden:NO];
-        [(NSProgressIndicator *)[item view] startAnimation:nil];
-    }
+    currentInternalPage = PAGE_NONE;
 }
 
 -(void)finishedFrameLoading
@@ -187,26 +183,6 @@ const int kToolBarICONWidth = 32;
 -(void)handleErrorInformation:(NSError *)error
 {
     [self showInternalWebPages:PAGE_ERROR withParameter:error];
-}
-
--(void)showInternalWebPages:(int)pageIndex withParameter:(id)parameter
-{
-    NSString* pCurPath = [[NSBundle mainBundle] resourcePath];
-    
-    switch(pageIndex)
-    {
-        case PAGE_ERROR:
-            pCurPath = [NSString stringWithFormat:@"file://%@/errors.html?errorcode=%ld",pCurPath,[(NSError*)parameter code] ];
-            break;
-        default:
-            pCurPath = nil;
-            break;
-    }
-    
-    if(pCurPath)
-    {
-        [self loadURL:pCurPath];
-    }
 }
 
 -(void)showWebInspectorWithParameter:(NSNumber *)console
@@ -229,6 +205,89 @@ const int kToolBarICONWidth = 32;
     }
 }
 
+-(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount
+{
+    ASLogDebug(@"Progress:%d,%d,%d",totalCount,completedCount,errorCount);
+    
+    if( (completedCount+errorCount) >= totalCount)
+    {
+        [self finishedFrameLoading];
+    }
+    else
+    {
+        NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
+        assert(item);
+        [(NSProgressIndicator *)[item view] setHidden:NO];
+        [(NSProgressIndicator *)[item view] startAnimation:nil];
+    }
+}
+
+#pragma mark - Internal Page Management
+-(NSString *)getInternalPageTitle
+{
+    NSString * resString;
+    switch(currentInternalPage)
+    {
+        case PAGE_ERROR:
+            resString = @"Failed to load the page.";
+            break;
+        default:
+            resString = nil;
+            break;
+    }
+    
+    return resString;
+}
+
+-(void)showInternalWebPages:(int)pageIndex withParameter:(id)parameter
+{
+    NSString* pCurPath = [[NSBundle mainBundle] resourcePath];
+    
+    currentInternalPage = pageIndex;
+    
+    switch(pageIndex)
+    {
+        case PAGE_ERROR:
+            pCurPath = [NSString stringWithFormat:@"file://%@/errors.html?errorcode=%ld",pCurPath,[(NSError*)parameter code] ];
+            break;
+        default:
+            pCurPath = nil;
+            currentInternalPage = PAGE_NONE;
+            break;
+    }
+    
+    if(pCurPath)
+    {
+        [self displayPageWithInternalPageWebView:pCurPath];
+    }
+}
+
+-(void)displayPageWithInternalPageWebView:(NSString *)pageURL
+{
+    NSView *mainView = [[self window] contentView];
+    
+    if(!internalPageWebView)
+    {
+        internalPageWebView = [[WebView alloc] initWithFrame:[mainView bounds] frameName:@"InternalPageOfMiniBrowser" groupName:@""];
+        
+        [mainView addSubview:internalPageWebView];
+    }
+    
+    [[internalPageWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pageURL]]];
+    
+    [self bringInternalPageWebViewOut];
+}
+
+-(void)bringWebViewOut
+{
+    [internalPageWebView setHidden:YES];
+}
+
+-(void)bringInternalPageWebViewOut
+{
+    [internalPageWebView setHidden:NO];
+}
+
 #pragma mark - UI Actions
 -(void)loadURL:(NSString *)url
 {
@@ -245,6 +304,7 @@ const int kToolBarICONWidth = 32;
 
 -(void)loadRequest:(NSURLRequest *)urlRequest
 {
+    currentInternalPage = PAGE_NONE;
     [self updateUserAgent];
     [[webView mainFrame] loadRequest:urlRequest];
 }

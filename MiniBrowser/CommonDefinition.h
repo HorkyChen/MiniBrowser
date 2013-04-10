@@ -12,6 +12,7 @@
 #import "ASLogger.h"
 
 typedef enum{
+    PAGE_NONE,
     PAGE_ERROR,
 } INTERNAL_PAGE_INDEX;
 

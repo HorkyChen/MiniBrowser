@@ -20,6 +20,15 @@
 @implementation MiniBrowserFrameLoaderClients
 
 #pragma mark - Frame Loading Delegate
+- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame
+{
+    if (frame == [sender mainFrame])
+    {
+        NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
+        [controller handleStartingWithConfirmedURL:url];
+        [self clearResourceCount];
+    }
+}
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
@@ -27,17 +36,6 @@
     {
         NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
         [controller updateTitleAndURL:title withURL:url];
-    }
-}
-
-- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
-    // Only report feedback for the main frame.
-    if (frame == [sender mainFrame])
-    {
-        NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
-        [controller updateURL:url];
-        
-        [self clearResourceCount];
     }
 }
 

@@ -18,9 +18,10 @@
 @property (nonatomic,readonly) WebView * webView;
 
 -(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url;
--(void)updateURL:(NSString *)url;
--(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount;
+-(void)handleStartingWithConfirmedURL:(NSString *)url;
 -(void)finishedFrameLoading;
+
+-(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount;
 -(void)handleErrorInformation:(NSError *)error;
 
 -(void)showWebInspectorWithParameter:(NSNumber *)console;
