@@ -34,7 +34,7 @@
 {
     if (frame == [sender mainFrame])
     {
-        NSString *url = [[[[frame provisionalDataSource] request] URL] absoluteString];
+        NSString *url = [sender mainFrameURL];
         [controller updateTitleAndURL:title withURL:url];
     }
 }

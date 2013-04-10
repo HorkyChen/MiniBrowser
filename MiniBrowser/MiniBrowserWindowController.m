@@ -12,6 +12,7 @@
 #include "CommonDefinition.h"
 #import "MiniBrowserDocument.h"
 #import "WebInspector.h"
+#import "MiniBrowserNavigatorButton.h"
 
 const static int kToolBarICONWidth = 32;
 static NSArray * internalPageList;
@@ -25,6 +26,9 @@ static NSArray * internalPageList;
     
     INTERNAL_PAGE_INDEX currentInternalPage;
     WebView * internalPageWebView;
+    
+    NSMenu *backMenu;
+    NSMenu *forwardMenu;
 }
 @end
 
@@ -47,6 +51,7 @@ static NSArray * internalPageList;
 -(void)dealloc {
     [frameLoaderClient release];
     [webView release];
+    [internalPageWebView release];
     
     [super dealloc];
 }
@@ -163,6 +168,7 @@ static NSArray * internalPageList;
         [self bringWebViewOut];
         [[self window] setTitle:title];
     }
+    [self addBackPageItem:url withTitle:title];
 }
 
 -(void)handleStartingWithConfirmedURL:(NSString *)url
@@ -304,7 +310,7 @@ static NSArray * internalPageList;
 
 -(NSString *)getInternalPageStringValue:(INTERNAL_PAGE_INDEX)pageIndex withKeyIndex:(INTERNAL_PAGE_LIST_KEY_INDEX)keyIndex
 {
-    NSString * resString;    
+    NSString * resString = nil;
     NSArray * pageItem = [internalPageList objectAtIndex:pageIndex];
     if(pageItem)
     {
@@ -341,23 +347,15 @@ static NSArray * internalPageList;
     [self loadURL:[(NSTextField *)[item view] stringValue]];
 }
 
--(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
-{
-    NSToolbarItem * result;
-    for(NSToolbarItem * item in [[[self window] toolbar] items])
-    {
-        if([[item itemIdentifier] isEqualToString:identifier])
-        {
-            result = item;
-            break;
-        }
-    }
-    return result;
-}
-
 -(void)forceReload
 {
     [self loadURL: [webView mainFrameURL]];
+}
+
+-(IBAction)chooseHistoryItem:(id)sender
+{
+    assert([sender isKindOfClass:[NSMenuItem class]] && [sender toolTip]);
+    [self loadURL:[sender toolTip]];
 }
 
 #pragma mark - Address Editor Delegate
@@ -380,65 +378,24 @@ static NSArray * internalPageList;
 }
 
 #pragma mark - Toolbar Delegates
-- (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
-                                       label:(NSString *)label
-                                 paleteLabel:(NSString *)paletteLabel
-                                     toolTip:(NSString *)toolTip
-                                      target:(id)target
-                                 itemContent:(id)imageOrView
-                                      action:(SEL)action
-                                        menu:(NSMenu *)menu
-{
-    // here we create the NSToolbarItem and setup its attributes in line with the parameters
-    NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
-    
-    [item setLabel:label];
-    [item setPaletteLabel:paletteLabel];
-    [item setToolTip:toolTip];
-    [item setTarget:target];
-    [item setAction:action];
-    
-    // Set the right attribute, depending on if we were given an image or a view
-    if([imageOrView isKindOfClass:[NSImage class]]){
-        [item setImage:imageOrView];
-    } else if ([imageOrView isKindOfClass:[NSView class]]){
-        [item setView:imageOrView];
-    }else {
-        assert(!"Invalid itemContent: object");
-    }
-    
-    if (menu != nil)
-    {
-        // we actually need an NSMenuItem here, so we construct one
-        NSMenuItem *mItem = [[[NSMenuItem alloc] init] autorelease];
-        [mItem setSubmenu:menu];
-        [mItem setTitle:label];
-        [item setMenuFormRepresentation:mItem];
-    }
-    
-    if ([identifier isEqual: kAddressToolbarItemID])
-    {
-        [item setMinSize: NSSizeFromString(@"{width=100; height=32}")];
-        [item setMaxSize: NSSizeFromString(@"{width=800; height=32}")];
-        [item setTarget:self];
-    }
-    return item;
-}
-
-#pragma mark - NSToolbarDelegate
-
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
 {
     NSToolbarItem *toolbarItem = nil;
+    NSRect buttonRect = NSRectFromCGRect(CGRectMake(0,0,kToolBarICONWidth,kToolBarICONWidth));
     
     if ([itemIdentifier isEqualToString:kBackToolbarItemID])
-    {
+    {        
+        MiniBrowserNavigatorButton * button =  [[[MiniBrowserNavigatorButton alloc] initWithFrame:buttonRect]autorelease];
+        [button setAction:@selector(goBack:)];
+        [button setTarget:webView];
+        [button setImage:[NSImage imageNamed:@"back.png"]];
+        
         toolbarItem = [self toolbarItemWithIdentifier:kBackToolbarItemID
                                                 label:@"Back"
                                           paleteLabel:@"Back"
                                               toolTip:@"Backward."
                                                target:webView
-                                          itemContent:[NSImage imageNamed:@"back.png"]
+                                          itemContent:button
                                                action:@selector(goBack:)
                                                  menu:nil];
     }
@@ -518,6 +475,7 @@ static NSArray * internalPageList;
                                           itemContent:progressBar
                                                action:nil
                                                  menu:nil];
+        [progressBar release];
     }
     
     return toolbarItem;
@@ -546,4 +504,91 @@ static NSArray * internalPageList;
             kProgressToolbaritemID,
             nil];
 }
+
+- (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
+                                       label:(NSString *)label
+                                 paleteLabel:(NSString *)paletteLabel
+                                     toolTip:(NSString *)toolTip
+                                      target:(id)target
+                                 itemContent:(id)imageOrView
+                                      action:(SEL)action
+                                        menu:(NSMenu *)menu
+{
+    // here we create the NSToolbarItem and setup its attributes in line with the parameters
+    NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
+    
+    [item setLabel:label];
+    [item setPaletteLabel:paletteLabel];
+    [item setToolTip:toolTip];
+    [item setTarget:target];
+    [item setAction:action];
+    
+    // Set the right attribute, depending on if we were given an image or a view
+    if([imageOrView isKindOfClass:[NSImage class]]){
+        [item setImage:imageOrView];
+    } else if ([imageOrView isKindOfClass:[NSView class]]){
+        [item setView:imageOrView];
+    }else {
+        assert(!"Invalid itemContent: object");
+    }
+    
+    if(menu)
+    {
+        [self assignMenuToToolbarItem:item withMenu:menu];
+    }
+    
+    if ([identifier isEqual: kAddressToolbarItemID])
+    {
+        [item setMinSize: NSSizeFromString(@"{width=100; height=32}")];
+        [item setMaxSize: NSSizeFromString(@"{width=800; height=32}")];
+        [item setTarget:self];
+    }
+    return item;
+}
+
+#pragma mark - Toolbar menu management
+-(void)addBackPageItem:(NSString *)url withTitle:(NSString *)title
+{
+    if(nil==backMenu)
+    {
+        backMenu = [[[NSMenu alloc] init] autorelease];
+        [self assignMenuToToolbarItemWithIdentifier:kBackToolbarItemID withMenu:backMenu];
+    }
+    
+    NSMenuItem * item = [[[NSMenuItem alloc] initWithTitle:title action:@selector(chooseHistoryItem:) keyEquivalent:@""] autorelease];
+    [item setToolTip:url];
+    [backMenu insertItem:item atIndex:0];
+}
+
+-(void)assignMenuToToolbarItemWithIdentifier:(NSString *)identifier withMenu:(NSMenu *)menu
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:identifier];
+    if(item)
+    {
+        [self assignMenuToToolbarItem:item withMenu:menu];
+    }
+}
+
+-(void)assignMenuToToolbarItem:(NSToolbarItem *)item withMenu:(NSMenu *)menu
+{
+    if ( nil==menu || nil==item)
+        return;
+    
+    [[item view] setMenu:menu];
+}
+
+-(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
+{
+    NSToolbarItem * result = nil;
+    for(NSToolbarItem * item in [[[self window] toolbar] items])
+    {
+        if([[item itemIdentifier] isEqualToString:identifier])
+        {
+            result = item;
+            break;
+        }
+    }
+    return result;
+}
+
 @end

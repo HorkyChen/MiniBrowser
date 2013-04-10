@@ -31,6 +31,7 @@
 		0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */; };
 		069F2C95170BCB7E0081130D /* MiniBrowser.icns in Resources */ = {isa = PBXBuildFile; fileRef = 069F2C94170BCB7E0081130D /* MiniBrowser.icns */; };
 		06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */; };
+		06F3CA4517154AF00075D364 /* MiniBrowserNavigatorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F3CA4417154AF00075D364 /* MiniBrowserNavigatorButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,8 @@
 		069F2C94170BCB7E0081130D /* MiniBrowser.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MiniBrowser.icns; sourceTree = "<group>"; };
 		06C8E1F81714120D00E9E102 /* MiniBrowserWebViewDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserWebViewDelegates.h; sourceTree = "<group>"; };
 		06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserWebViewDelegates.m; sourceTree = "<group>"; };
+		06F3CA4317154AF00075D364 /* MiniBrowserNavigatorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniBrowserNavigatorButton.h; path = CustomClass/MiniBrowserNavigatorButton.h; sourceTree = "<group>"; };
+		06F3CA4417154AF00075D364 /* MiniBrowserNavigatorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MiniBrowserNavigatorButton.m; path = CustomClass/MiniBrowserNavigatorButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,7 @@
 		0681E6F917096EB600955434 /* MiniBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				06F3CA4117154AA50075D364 /* CustomButton */,
 				06293A921712A6AA00AA4417 /* ASLogger */,
 				0635BB0A170A63B10064AD9A /* res */,
 				0681E7301709885E00955434 /* Delegates */,
@@ -215,6 +219,15 @@
 				06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		06F3CA4117154AA50075D364 /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				06F3CA4317154AF00075D364 /* MiniBrowserNavigatorButton.h */,
+				06F3CA4417154AF00075D364 /* MiniBrowserNavigatorButton.m */,
+			);
+			name = CustomButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +314,7 @@
 				06293A9E1712A6AA00AA4417 /* ASLResponse.m in Sources */,
 				06293AA91712ABB500AA4417 /* ASLMessage.m in Sources */,
 				06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */,
+				06F3CA4517154AF00075D364 /* MiniBrowserNavigatorButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

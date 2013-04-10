@@ -377,7 +377,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100057</int>
+			<int key="maxID">100070</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -389,7 +389,6 @@
 						<string key="chooseSafariIpadUserAgent:">id</string>
 						<string key="chooseSafariMacOSUserAgent:">id</string>
 						<string key="chooseUCBrowserIpadUserAgent:">id</string>
-						<string key="saveDocument:">id</string>
 						<string key="showJavaScriptConsole:">id</string>
 						<string key="showWebInspector:">id</string>
 					</dictionary>
@@ -410,10 +409,6 @@
 							<string key="name">chooseUCBrowserIpadUserAgent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="saveDocument:">
-							<string key="name">saveDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="showJavaScriptConsole:">
 							<string key="name">showJavaScriptConsole:</string>
 							<string key="candidateClassName">id</string>
@@ -431,6 +426,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MiniBrowserWindowController</string>
 					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openNewURL:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openNewURL:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">openNewURL:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">toolbar</string>
 						<string key="NS.object.0">NSToolbar</string>
