@@ -13,7 +13,8 @@
 #import "MiniBrowserDocument.h"
 #import "WebInspector.h"
 
-const int kToolBarICONWidth = 32;
+const static int kToolBarICONWidth = 32;
+static NSArray * internalPageList;
 //#define OPEN_IN_NEW_WINDOW
 
 @interface MiniBrowserWindowController ()
@@ -36,6 +37,8 @@ const int kToolBarICONWidth = 32;
         frameLoaderClient = [[MiniBrowserFrameLoaderClients alloc] initWithController:self];
         policyDelegate = [[MiniBrowserPolicyDelegate alloc] initWithController:self];
         [self enableWebInspector];
+        
+        [self initInternalPageList];
     }
     
     return self;
@@ -153,7 +156,7 @@ const int kToolBarICONWidth = 32;
 {
     if ( currentInternalPage )
     {
-        [[self window] setTitle:[self getInternalPageTitle]];
+        [[self window] setTitle:[self getInternalPageTitle:currentInternalPage]];
     }
     else
     {
@@ -223,22 +226,6 @@ const int kToolBarICONWidth = 32;
 }
 
 #pragma mark - Internal Page Management
--(NSString *)getInternalPageTitle
-{
-    NSString * resString;
-    switch(currentInternalPage)
-    {
-        case PAGE_ERROR:
-            resString = @"Failed to load the page.";
-            break;
-        default:
-            resString = nil;
-            break;
-    }
-    
-    return resString;
-}
-
 -(void)showInternalWebPages:(int)pageIndex withParameter:(id)parameter
 {
     NSString* pCurPath = [[NSBundle mainBundle] resourcePath];
@@ -248,7 +235,10 @@ const int kToolBarICONWidth = 32;
     switch(pageIndex)
     {
         case PAGE_ERROR:
-            pCurPath = [NSString stringWithFormat:@"file://%@/errors.html?errorcode=%ld",pCurPath,[(NSError*)parameter code] ];
+            pCurPath = [NSString stringWithFormat:@"file://%@/%@?errorcode=%ld",pCurPath,
+                                            [self getInternalPageFileName:currentInternalPage],
+                                            [(NSError*)parameter code]
+                                    ];
             break;
         default:
             pCurPath = nil;
@@ -286,6 +276,42 @@ const int kToolBarICONWidth = 32;
 -(void)bringInternalPageWebViewOut
 {
     [internalPageWebView setHidden:NO];
+}
+
+#pragma mark - Internal Page List
+-(void)initInternalPageList
+{
+    if(nil!=internalPageList)
+        return;
+
+    internalPageList = [[NSArray arrayWithObjects:
+                        // PAGE_TITLE, PAGE_FILE_NAME
+                         [NSArray arrayWithObjects:@"",@"", nil], //PAGE_NONE
+                         [NSArray arrayWithObjects:@"Failed to load the page",@"errors.html", nil], //PAGE_ERROR
+                         nil
+                         ] retain];
+}
+
+-(NSString *)getInternalPageTitle:(INTERNAL_PAGE_INDEX)pageIndex
+{
+    return [self getInternalPageStringValue:pageIndex withKeyIndex:PAGE_TITLE];
+}
+
+-(NSString *)getInternalPageFileName:(INTERNAL_PAGE_INDEX)pageIndex
+{
+    return [self getInternalPageStringValue:pageIndex withKeyIndex:PAGE_FILE_NAME];
+}
+
+-(NSString *)getInternalPageStringValue:(INTERNAL_PAGE_INDEX)pageIndex withKeyIndex:(INTERNAL_PAGE_LIST_KEY_INDEX)keyIndex
+{
+    NSString * resString;    
+    NSArray * pageItem = [internalPageList objectAtIndex:pageIndex];
+    if(pageItem)
+    {
+        resString = [pageItem objectAtIndex:keyIndex];
+    }
+    
+    return resString;
 }
 
 #pragma mark - UI Actions
