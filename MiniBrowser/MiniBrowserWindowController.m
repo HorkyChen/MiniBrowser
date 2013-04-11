@@ -396,7 +396,7 @@ static NSArray * internalPageList;
                                               toolTip:@"Backward."
                                                target:webView
                                           itemContent:button
-                                               action:@selector(goBack:)
+                                               action:nil
                                                  menu:nil];
     }
     else if ([itemIdentifier isEqualToString:kForwardToolbarItemID])

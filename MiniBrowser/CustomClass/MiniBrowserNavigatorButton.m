@@ -64,14 +64,11 @@
 - (void)mouseUp:(NSEvent *)theEvent
 {
     [self highlight:NO];
-    if(nil==timer)
+    if(nil==timer || [timer isValid])
     {
         [self performClick:self];
     }
-    else
-    {
-        [timer invalidate];
-    }
+    [timer invalidate];
 }
 
 @end
