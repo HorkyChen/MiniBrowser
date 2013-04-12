@@ -54,7 +54,7 @@
 {
     [self highlight:YES];
     
-    if(nil!=self.menu)
+    if(nil!=self.menu && [self.menu numberOfItems]>0)
     {
         timer=[NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(displayMenu:) userInfo:theEvent repeats:NO];
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:@"NSDefaultRunLoopMode"];

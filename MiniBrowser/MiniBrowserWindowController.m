@@ -92,6 +92,8 @@ static NSArray * internalPageList;
     [webView setResourceLoadDelegate:frameLoaderClient];
     [webView setPolicyDelegate:policyDelegate];
     
+    [webView setMaintainsBackForwardList:YES];
+    
     [mainView addSubview:webView];
     
     [self loadURL:kDefaultWebPage];
@@ -168,7 +170,6 @@ static NSArray * internalPageList;
         [self bringWebViewOut];
         [[self window] setTitle:title];
     }
-    [self addBackPageItem:url withTitle:title];
 }
 
 -(void)handleStartingWithConfirmedURL:(NSString *)url
@@ -182,11 +183,10 @@ static NSArray * internalPageList;
 
 -(void)finishedFrameLoading
 {
-    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
-    assert(item);
+    [self stopLoadingProgress];
     
-    [(NSProgressIndicator *)[item view] stopAnimation:nil];
-    [(NSProgressIndicator *)[item view] setHidden:YES];
+    [self updateBackForwardState];
+    [self updateBackForwardList];
 }
 
 -(void)handleErrorInformation:(NSError *)error
@@ -220,7 +220,7 @@ static NSArray * internalPageList;
     
     if( (completedCount+errorCount) >= totalCount)
     {
-        [self finishedFrameLoading];
+        [self stopLoadingProgress];
     }
     else
     {
@@ -231,6 +231,14 @@ static NSArray * internalPageList;
     }
 }
 
+-(void)stopLoadingProgress
+{
+    NSToolbarItem * item = [self getToolbarItemWithIdentifier:kProgressToolbaritemID];
+    assert(item);
+    
+    [(NSProgressIndicator *)[item view] stopAnimation:nil];
+    [(NSProgressIndicator *)[item view] setHidden:YES];
+}
 #pragma mark - Internal Page Management
 -(void)showInternalWebPages:(int)pageIndex withParameter:(id)parameter
 {
@@ -401,13 +409,18 @@ static NSArray * internalPageList;
     }
     else if ([itemIdentifier isEqualToString:kForwardToolbarItemID])
     {
+        MiniBrowserNavigatorButton * button =  [[[MiniBrowserNavigatorButton alloc] initWithFrame:buttonRect]autorelease];
+        [button setAction:@selector(goForward:)];
+        [button setTarget:webView];
+        [button setImage:[NSImage imageNamed:@"forward.png"]];
+        
         toolbarItem = [self toolbarItemWithIdentifier:kForwardToolbarItemID
                                                 label:@"Forward"
                                           paleteLabel:@"Forward"
                                               toolTip:@"Forward."
                                                target:webView
-                                          itemContent:[NSImage imageNamed:@"forward.png"]
-                                               action:@selector(goForward:)
+                                          itemContent:button
+                                               action:nil
                                                  menu:nil];
     }
     else if ([itemIdentifier isEqualToString:kRefreshToolbarItemID])
@@ -532,11 +545,6 @@ static NSArray * internalPageList;
         assert(!"Invalid itemContent: object");
     }
     
-    if(menu)
-    {
-        [self assignMenuToToolbarItem:item withMenu:menu];
-    }
-    
     if ([identifier isEqual: kAddressToolbarItemID])
     {
         [item setMinSize: NSSizeFromString(@"{width=100; height=32}")];
@@ -546,20 +554,21 @@ static NSArray * internalPageList;
     return item;
 }
 
-#pragma mark - Toolbar menu management
--(void)addBackPageItem:(NSString *)url withTitle:(NSString *)title
+-(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
 {
-    if(nil==backMenu)
+    NSToolbarItem * result = nil;
+    for(NSToolbarItem * item in [[[self window] toolbar] items])
     {
-        backMenu = [[[NSMenu alloc] init] autorelease];
-        [self assignMenuToToolbarItemWithIdentifier:kBackToolbarItemID withMenu:backMenu];
+        if([[item itemIdentifier] isEqualToString:identifier])
+        {
+            result = item;
+            break;
+        }
     }
-    
-    NSMenuItem * item = [[[NSMenuItem alloc] initWithTitle:title action:@selector(chooseHistoryItem:) keyEquivalent:@""] autorelease];
-    [item setToolTip:url];
-    [backMenu insertItem:item atIndex:0];
+    return result;
 }
 
+#pragma mark - Toolbar menu management
 -(void)assignMenuToToolbarItemWithIdentifier:(NSString *)identifier withMenu:(NSMenu *)menu
 {
     NSToolbarItem * item = [self getToolbarItemWithIdentifier:identifier];
@@ -577,18 +586,58 @@ static NSArray * internalPageList;
     [[item view] setMenu:menu];
 }
 
--(NSToolbarItem *) getToolbarItemWithIdentifier:(NSString *)identifier
+#pragma mark - History Management
+-(void)updateBackForwardState
 {
-    NSToolbarItem * result = nil;
-    for(NSToolbarItem * item in [[[self window] toolbar] items])
-    {
-        if([[item itemIdentifier] isEqualToString:identifier])
-        {
-            result = item;
-            break;
-        }
-    }
-    return result;
+     [[self getToolbarItemWithIdentifier:kBackToolbarItemID] setEnabled:[webView canGoBack]];
+     [[self getToolbarItemWithIdentifier:kForwardToolbarItemID] setEnabled:[webView canGoForward]];
 }
 
+-(void)updateBackForwardList
+{
+    WebBackForwardList * list = [webView backForwardList];
+    assert(list);
+    
+    if(nil==backMenu)
+    {
+        backMenu = [[[NSMenu alloc] init] autorelease];
+        [self assignMenuToToolbarItemWithIdentifier:kBackToolbarItemID withMenu:backMenu];
+    }
+    
+    if(nil==forwardMenu)
+    {
+        forwardMenu = [[[NSMenu alloc] init] autorelease];
+        [self assignMenuToToolbarItemWithIdentifier:kForwardToolbarItemID withMenu:forwardMenu];
+    }
+    
+    int backItemCount = [list backListCount];
+    int forwardItemCount = [list forwardListCount];
+    
+    if( backItemCount>0 )
+    {
+        [self updateHistoryMenuWithBackForwardList:backMenu withList:[list backListWithLimit:[list backListCount]]];
+    }
+    
+    if( forwardItemCount>0 )
+    {
+        [self updateHistoryMenuWithBackForwardList:forwardMenu withList:[list forwardListWithLimit:forwardItemCount]];
+    }
+}
+
+-(void)updateHistoryMenuWithBackForwardList:(NSMenu *)menu withList:(NSArray*)historyList
+{
+    assert(menu);
+    assert(historyList);
+    
+    [menu removeAllItems];
+    for(WebHistoryItem *historyItem in historyList)
+    {
+        NSMenuItem * item = [[[NSMenuItem alloc]
+                                                                initWithTitle:[historyItem title]
+                                                                action:@selector(chooseHistoryItem:)
+                                                                keyEquivalent:@""] autorelease];
+        [item setToolTip:[historyItem URLString]];
+        [menu addItem:item];
+    }
+}
 @end
