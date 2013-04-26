@@ -13,6 +13,7 @@
 #import "MiniBrowserDocument.h"
 #import "WebInspector.h"
 #import "MiniBrowserNavigatorButton.h"
+#import "Logging.h"
 
 const static int kToolBarICONWidth = 32;
 static NSArray * internalPageList;
@@ -41,7 +42,7 @@ static NSArray * internalPageList;
         frameLoaderClient = [[MiniBrowserFrameLoaderClients alloc] initWithController:self];
         policyDelegate = [[MiniBrowserPolicyDelegate alloc] initWithController:self];
         [self enableWebInspector];
-        
+        [self initTheDebugLogLevel];
         [self initInternalPageList];
     }
     
@@ -60,6 +61,12 @@ static NSArray * internalPageList;
 {
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"WebKitDeveloperExtras"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void)initTheDebugLogLevel
+{
+//    setLogLevelToDefaults(LogLoading, WTFLogChannelOn);
+//    initializeWithUserDefault(LogLoading);
 }
 
 - (void)awakeFromNib

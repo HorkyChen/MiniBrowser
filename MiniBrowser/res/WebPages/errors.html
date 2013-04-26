@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>Error Page</title>
+</head>
+<body>
+<div align="center">
+<img src="Question.png">
+</div>
+
+<div style="color:#dd4814; font-size:140%;font-family:courier;text-align:center;">
+<span>Failed to load the web page! Please try again!</span>
+<b><span id="error_code"></span></b>
+</div>
+
+<script>
+var qs = (function(a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i)
+    {
+        var p=a[i].split('=');
+        if (p.length != 2) continue;
+        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+})(window.location.search.substr(1).split('&'));
+
+window.onload=function(){
+	errorCode = document.getElementById("error_code");
+	errorCode.innerHTML = qs["errorcode"];
+}
+</script>
+
+</body>
+</html>
