@@ -30,6 +30,7 @@
 		0681E7271709797B00955434 /* MiniBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E7261709797B00955434 /* MiniBrowserWindowController.m */; };
 		0681E72E1709885600955434 /* MiniBrowserFrameLoaderClients.m in Sources */ = {isa = PBXBuildFile; fileRef = 0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */; };
 		069F2C95170BCB7E0081130D /* MiniBrowser.icns in Resources */ = {isa = PBXBuildFile; fileRef = 069F2C94170BCB7E0081130D /* MiniBrowser.icns */; };
+		06B65CE61725083D00F07671 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06B65CE31725070400F07671 /* Logging.cpp */; };
 		06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */; };
 		06F3CA4517154AF00075D364 /* MiniBrowserNavigatorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F3CA4417154AF00075D364 /* MiniBrowserNavigatorButton.m */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,8 @@
 		0681E72C1709885600955434 /* MiniBrowserFrameLoaderClients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserFrameLoaderClients.h; sourceTree = "<group>"; };
 		0681E72D1709885600955434 /* MiniBrowserFrameLoaderClients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserFrameLoaderClients.m; sourceTree = "<group>"; };
 		069F2C94170BCB7E0081130D /* MiniBrowser.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MiniBrowser.icns; sourceTree = "<group>"; };
+		06B65CE31725070400F07671 /* Logging.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = Logging.cpp; path = WebCore/Logging.cpp; sourceTree = "<group>"; };
+		06B65CE41725070400F07671 /* Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Logging.h; path = WebCore/Logging.h; sourceTree = "<group>"; };
 		06C8E1F81714120D00E9E102 /* MiniBrowserWebViewDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniBrowserWebViewDelegates.h; sourceTree = "<group>"; };
 		06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniBrowserWebViewDelegates.m; sourceTree = "<group>"; };
 		06F3CA4317154AF00075D364 /* MiniBrowserNavigatorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniBrowserNavigatorButton.h; path = CustomClass/MiniBrowserNavigatorButton.h; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 		0681E6F917096EB600955434 /* MiniBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				06B65CE1172506F200F07671 /* WebCore */,
 				06F3CA4117154AA50075D364 /* CustomButton */,
 				06293A921712A6AA00AA4417 /* ASLogger */,
 				0635BB0A170A63B10064AD9A /* res */,
@@ -219,6 +223,15 @@
 				06C8E1F91714120D00E9E102 /* MiniBrowserWebViewDelegates.m */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		06B65CE1172506F200F07671 /* WebCore */ = {
+			isa = PBXGroup;
+			children = (
+				06B65CE31725070400F07671 /* Logging.cpp */,
+				06B65CE41725070400F07671 /* Logging.h */,
+			);
+			name = WebCore;
 			sourceTree = "<group>";
 		};
 		06F3CA4117154AA50075D364 /* CustomButton */ = {
@@ -315,6 +328,7 @@
 				06293AA91712ABB500AA4417 /* ASLMessage.m in Sources */,
 				06C8E1FA1714120D00E9E102 /* MiniBrowserWebViewDelegates.m in Sources */,
 				06F3CA4517154AF00075D364 /* MiniBrowserNavigatorButton.m in Sources */,
+				06B65CE61725083D00F07671 /* Logging.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
