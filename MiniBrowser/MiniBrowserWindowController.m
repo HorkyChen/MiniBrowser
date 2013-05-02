@@ -65,8 +65,9 @@ static NSArray * internalPageList;
 
 -(void)initTheDebugLogLevel
 {
-//    setLogLevelToDefaults(LogLoading, WTFLogChannelOn);
-//    initializeWithUserDefault(LogLoading);
+    setLogLevelToDefaults(LogLoading, WTFLogChannelOn);
+    setLogLevelToDefaults(LogFrames, WTFLogChannelOn);
+    setLogLevelToDefaults(LogResourceLoading, WTFLogChannelOn);
 }
 
 - (void)awakeFromNib

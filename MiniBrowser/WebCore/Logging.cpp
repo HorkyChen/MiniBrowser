@@ -43,7 +43,8 @@ extern "C" {
 void initializeWithUserDefault(WTFLogChannel channel)
 {
     NSString *logLevelString = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithUTF8String:channel.defaultName]];
-    if (logLevelString) {
+    if (logLevelString)
+    {
         unsigned logLevel;
         if (![[NSScanner scannerWithString:logLevelString] scanHexInt:&logLevel])
             NSLog(@"unable to parse hex value for %s (%@), logging is off", channel.defaultName, logLevelString);
@@ -56,7 +57,13 @@ void initializeWithUserDefault(WTFLogChannel channel)
 
 void setLogLevelToDefaults(WTFLogChannel channel, WTFLogChannelState level)
 {
-    [[NSUserDefaults standardUserDefaults] setInteger:level forKey:[NSString stringWithUTF8String:channel.defaultName]];
+    static unsigned mask = 0;
+    if(WTFLogChannelOn == level)
+    {
+        mask |= channel.mask;
+        NSString * value = [NSString stringWithFormat:@"%x",mask];
+        [[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithUTF8String:channel.defaultName]];
+    }
 }
     
 #ifdef __cplusplus
