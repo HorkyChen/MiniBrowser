@@ -10,14 +10,9 @@
 #import "MiniBrowserWindowController.h"
 
 @implementation MiniBrowserDocument
-@synthesize currentUserAgent;
-
 - (id)init
 {
     self = [super init];
-    if (self) {
-        self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
-    }
     return self;
 }
 
@@ -74,78 +69,56 @@
 }
 
 #pragma mark - User Agent Management Functions
--(IBAction)chooseUCBrowserIpadUserAgent:(id)sender
-{
-    self.currentUserAgent = USER_AGENT_UCBROWSER_IPAD;
-    [self reloadAfterUAChanged];
-    [self updateUAMenuItems:(NSMenuItem *) sender];
-    ASLogInfo(@"Changed UA to UCBrowser(iPad)");
-}
-
--(IBAction)chooseSafariIpadUserAgent:(id)sender
-{
-    self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
-    [self reloadAfterUAChanged];
-    [self updateUAMenuItems:(NSMenuItem *) sender];
-    ASLogInfo(@"Changed UA to Safari(iPad)");
-}
-
--(IBAction)chooseSafariMacOSUserAgent:(id)sender
-{
-    self.currentUserAgent = USER_AGENT_SAFARI_MACOS;
-    [self reloadAfterUAChanged];
-    [self updateUAMenuItems:(NSMenuItem *) sender];
-    ASLogInfo(@"Changed UA to Safari(Mac OS)");
-}
-
--(IBAction)chooseChromeUserAgent:(id)sender
-{
-    self.currentUserAgent = USER_AGENT_CHROME;
-    [self reloadAfterUAChanged];
-    [self updateUAMenuItems:(NSMenuItem *) sender];
-    ASLogInfo(@"Changed UA to Chrome(Mac OS)");
-}
-
-
--(IBAction)showWebInspector:(id)sender
-{
-    [self showWebInspectorWithParameter:NO];
-}
-
--(IBAction)showJavaScriptConsole:(id)sender
-{
-    [self showWebInspectorWithParameter:YES];
-}
-
--(void)updateUAMenuItems:(NSMenuItem *)item
-{
-    NSMenu *menu = [item menu];
-    for(NSMenuItem *subitem in [menu itemArray])
-    {
-        [subitem setState:NSOffState];
-    }
-    [item setState:NSOnState];
-}
-
--(void)reloadAfterUAChanged
-{
-    for(id controller in [self windowControllers])
-    {
-        if ([controller respondsToSelector:@selector(forceReload)])
-        {
-            [controller performSelector:@selector(forceReload)];
-        }
-    }
-}
-
--(void)showWebInspectorWithParameter:(BOOL)bConsole
-{
-    for(id controller in [self windowControllers])
-    {
-        if ([controller respondsToSelector:@selector(showWebInspectorWithParameter:)])
-        {
-            [controller performSelector:@selector(showWebInspectorWithParameter:) withObject:[NSNumber numberWithBool:bConsole]];
-        }
-    }
-}
+//-(IBAction)chooseUCBrowserIpadUserAgent:(id)sender
+//{
+//    self.currentUserAgent = USER_AGENT_UCBROWSER_IPAD;
+//    [self reloadAfterUAChanged];
+//    [self updateUAMenuItems:(NSMenuItem *) sender];
+//    ASLogInfo(@"Changed UA to UCBrowser(iPad)");
+//}
+//
+//-(IBAction)chooseSafariIpadUserAgent:(id)sender
+//{
+//    self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
+//    [self reloadAfterUAChanged];
+//    [self updateUAMenuItems:(NSMenuItem *) sender];
+//    ASLogInfo(@"Changed UA to Safari(iPad)");
+//}
+//
+//-(IBAction)chooseSafariMacOSUserAgent:(id)sender
+//{
+//    self.currentUserAgent = USER_AGENT_SAFARI_MACOS;
+//    [self reloadAfterUAChanged];
+//    [self updateUAMenuItems:(NSMenuItem *) sender];
+//    ASLogInfo(@"Changed UA to Safari(Mac OS)");
+//}
+//
+//-(IBAction)chooseChromeUserAgent:(id)sender
+//{
+//    self.currentUserAgent = USER_AGENT_CHROME;
+//    [self reloadAfterUAChanged];
+//    [self updateUAMenuItems:(NSMenuItem *) sender];
+//    ASLogInfo(@"Changed UA to Chrome(Mac OS)");
+//}
+//
+//-(void)updateUAMenuItems:(NSMenuItem *)item
+//{
+//    NSMenu *menu = [item menu];
+//    for(NSMenuItem *subitem in [menu itemArray])
+//    {
+//        [subitem setState:NSOffState];
+//    }
+//    [item setState:NSOnState];
+//}
+//
+//-(void)reloadAfterUAChanged
+//{
+//    for(id controller in [self windowControllers])
+//    {
+//        if ([controller respondsToSelector:@selector(forceReload)])
+//        {
+//            [controller performSelector:@selector(forceReload)];
+//        }
+//    }
+//}
 @end

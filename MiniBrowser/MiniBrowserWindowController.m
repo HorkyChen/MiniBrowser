@@ -35,6 +35,7 @@ static NSArray * internalPageList;
 
 @implementation MiniBrowserWindowController
 @synthesize webView;
+@synthesize currentUserAgent;
 
 - (id)init {
     if (self = [super initWithWindowNibName:@"MiniBrowserDocument"])
@@ -44,6 +45,8 @@ static NSArray * internalPageList;
         [self enableWebInspector];
         [self initTheDebugLogLevel];
         [self initInternalPageList];
+        
+        self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
     }
     
     return self;
@@ -125,9 +128,8 @@ static NSArray * internalPageList;
 
 -(void)updateUserAgent
 {
-    MiniBrowserDocument * document = [self document];
     NSString * userAgent ;
-    switch(document.currentUserAgent)
+    switch(currentUserAgent)
     {
         case USER_AGENT_SAFARI_IPAD:
             userAgent = UserAgent_SafariIpad;
@@ -195,6 +197,9 @@ static NSArray * internalPageList;
     
     [self updateBackForwardState];
     [self updateBackForwardList];
+    
+    //Show the final url again
+    [self handleStartingWithConfirmedURL:[webView mainFrameURL]];
 }
 
 -(void)handleErrorInformation:(NSError *)error
@@ -380,6 +385,57 @@ static NSArray * internalPageList;
     [self loadAndRunScript];
 }
 
+-(IBAction)showWebInspector:(id)sender
+{
+    [self showWebInspectorWithParameter:NO];
+}
+
+-(IBAction)showJavaScriptConsole:(id)sender
+{
+    [self showWebInspectorWithParameter:YES];
+}
+
+-(IBAction)chooseUCBrowserIpadUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_UCBROWSER_IPAD;
+    [self forceReload];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to UCBrowser(iPad)");
+}
+
+-(IBAction)chooseSafariIpadUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_SAFARI_IPAD;
+    [self forceReload];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Safari(iPad)");
+}
+
+-(IBAction)chooseSafariMacOSUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_SAFARI_MACOS;
+    [self forceReload];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Safari(Mac OS)");
+}
+
+-(IBAction)chooseChromeUserAgent:(id)sender
+{
+    self.currentUserAgent = USER_AGENT_CHROME;
+    [self forceReload];
+    [self updateUAMenuItems:(NSMenuItem *) sender];
+    ASLogInfo(@"Changed UA to Chrome(Mac OS)");
+}
+
+-(void)updateUAMenuItems:(NSMenuItem *)item
+{
+    NSMenu *menu = [item menu];
+    for(NSMenuItem *subitem in [menu itemArray])
+    {
+        [subitem setState:NSOffState];
+    }
+    [item setState:NSOnState];
+}
 #pragma mark - Address Editor Delegate
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
  forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index

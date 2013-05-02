@@ -16,6 +16,7 @@
 }
 
 @property (nonatomic,readonly) WebView * webView;
+@property (nonatomic) NSInteger currentUserAgent;
 
 -(void)updateTitleAndURL:(NSString *)title withURL:(NSString *)url;
 -(void)handleStartingWithConfirmedURL:(NSString *)url;
