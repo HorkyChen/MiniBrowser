@@ -374,6 +374,11 @@ static NSArray * internalPageList;
     [self loadURL:[sender toolTip]];
 }
 
+-(void)runJavaScript:(NSString *)fileName
+{
+    NSLog(@"Going to inject the script %@",fileName);
+}
+
 #pragma mark - Address Editor Delegate
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
  forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index

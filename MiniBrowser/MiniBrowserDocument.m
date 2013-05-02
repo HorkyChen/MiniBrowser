@@ -117,6 +117,36 @@
     [self showWebInspectorWithParameter:YES];
 }
 
+-(IBAction)runJavaScript:(id)sender
+{
+    NSString * fileName = nil;
+    //Pop up the open file dialog and choose one JS file
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setAllowsMultipleSelection:NO];
+    [openDlg setCanChooseDirectories:NO];
+    
+    NSArray * fileTypesArray = [NSArray arrayWithObjects:@"js", @"txt", nil];
+    [openDlg setAllowedFileTypes:fileTypesArray];
+    
+    if ( [openDlg runModal] == NSOKButton )
+    {
+        NSArray* files = [openDlg URLs];
+        if([files count]>0)
+        {
+            fileName = [files objectAtIndex:0];
+        }
+    }
+    
+    for(id controller in [self windowControllers])
+    {
+        if ([controller respondsToSelector:@selector(runJavaScript:)])
+        {
+            [controller performSelector:@selector(runJavaScript:) withObject:fileName];
+        }
+    }
+}
+
 -(void)updateUAMenuItems:(NSMenuItem *)item
 {
     NSMenu *menu = [item menu];
