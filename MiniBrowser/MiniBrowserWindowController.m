@@ -374,9 +374,10 @@ static NSArray * internalPageList;
     [self loadURL:[sender toolTip]];
 }
 
--(void)runJavaScript:(NSString *)fileName
+-(IBAction)runJavaScript:(id)sender
 {
-    NSLog(@"Going to inject the script %@",fileName);
+    NSLog(@"Going to inject the script");
+    [self loadAndRunScript];
 }
 
 #pragma mark - Address Editor Delegate
@@ -652,5 +653,51 @@ static NSArray * internalPageList;
         [item setToolTip:[historyItem URLString]];
         [menu addItem:item];
     }
+}
+
+#pragma mark -JavaScript Management
+-(void)loadAndRunScript
+{
+    NSURL * fileName = [self chooseJavaScriptFile];
+    NSString * scriptContent = [NSString stringWithContentsOfURL:fileName encoding:NSUTF8StringEncoding error:nil];
+    if(scriptContent)
+    {
+        id win = [webView windowScriptObject];
+        id res = [win evaluateWebScript:scriptContent];
+
+        if([WebUndefined undefined] == res)
+        {
+            NSLog(@"Failed to execute the script.");
+        }
+    }
+}
+#pragma mark -Utilities
+-(NSURL*)chooseJavaScriptFile
+{
+    NSArray * fileTypesArray = [NSArray arrayWithObjects:@"js", @"txt", nil];
+    return [self chooseOneFileWithFileType:fileTypesArray];
+}
+
+-(NSURL *)chooseOneFileWithFileType:(NSArray *)fileTypes
+{
+    NSURL * fileName = nil;
+    //Pop up the open file dialog and choose one JS file
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setAllowsMultipleSelection:NO];
+    [openDlg setCanChooseDirectories:NO];
+    
+    [openDlg setAllowedFileTypes:fileTypes];
+    
+    if ( [openDlg runModal] == NSOKButton )
+    {
+        NSArray* files = [openDlg URLs];
+        if([files count]>0)
+        {
+            fileName = [files objectAtIndex:0];
+        }
+    }
+    
+    return fileName;
 }
 @end
