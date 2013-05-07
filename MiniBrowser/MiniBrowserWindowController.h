@@ -25,5 +25,5 @@
 -(void)updateProgress:(int)completedCount withTotalCount:(int)totalCount withErrorCount:(int)errorCount;
 -(void)handleErrorInformation:(NSError *)error;
 
--(void)showWebInspectorWithParameter:(NSNumber *)console;
+-(void)showWebInspectorWithParameter:(BOOL)console;
 @end

@@ -207,7 +207,7 @@ static NSArray * internalPageList;
     [self showInternalWebPages:PAGE_ERROR withParameter:error];
 }
 
--(void)showWebInspectorWithParameter:(NSNumber *)console
+-(void)showWebInspectorWithParameter:(BOOL)console
 {
     if ( !webView )
         return;
@@ -217,7 +217,7 @@ static NSArray * internalPageList;
         [inspector detach:webView];
     }
     
-    if([console boolValue])
+    if(console)
     {
         [inspector showConsole:webView];
     }
@@ -436,6 +436,7 @@ static NSArray * internalPageList;
     }
     [item setState:NSOnState];
 }
+
 #pragma mark - Address Editor Delegate
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
  forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
@@ -711,7 +712,7 @@ static NSArray * internalPageList;
     }
 }
 
-#pragma mark -JavaScript Management
+#pragma mark - JavaScript Management
 -(void)loadAndRunScript
 {
     NSURL * fileName = [self chooseJavaScriptFile];
@@ -727,7 +728,7 @@ static NSArray * internalPageList;
         }
     }
 }
-#pragma mark -Utilities
+#pragma mark - Utilities
 -(NSURL*)chooseJavaScriptFile
 {
     NSArray * fileTypesArray = [NSArray arrayWithObjects:@"js", @"txt", nil];
